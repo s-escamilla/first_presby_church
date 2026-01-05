@@ -30,7 +30,7 @@ auth:
 logo_url: https://decapbridge.com/decapcms-with-bridge.svg
 
 # Add site links in Decap CMS (optional)
-site_url: https://s-escamilla.github.io
+site_url: https://s-escamilla.github.io/first_presby_church/
 
 # Enable editorial workflow - prevents immediate publish/rebuild
 publish_mode: editorial_workflow
