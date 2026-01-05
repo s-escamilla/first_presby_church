@@ -1,14 +1,13 @@
 # Replace the "backend" object below with the snippet from DecapBridge. We need something here to get the CMS to work locally, but this alone won't work in production
 # Use DecapBridge PKCE auth (required)
 backend:
-  name: git-gateway
+  name: github
   repo: s-escamilla/first_presby_church
   branch: main
   auth_type: pkce
   base_url: https://auth.decapbridge.com
   auth_endpoint: /sites/6bf2c824-caf3-4c96-a9c3-c720e2423e39/pkce
   auth_token_endpoint: /sites/6bf2c824-caf3-4c96-a9c3-c720e2423e39/token
-  gateway_url: https://gateway.decapbridge.com
 
   # See who did what (optional)
   commit_messages:
