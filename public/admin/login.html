@@ -316,8 +316,8 @@
         function checkExistingSession() {
             const session = getSession();
             if (session && session.expiresAt > Date.now()) {
-                // Already logged in, redirect to dashboard
-                const redirectTo = getRedirectParam() || '/admin/dashboard/';
+                // Already logged in, redirect to CMS
+                const redirectTo = getRedirectParam() || '/admin/index.html';
                 window.location.href = redirectTo;
             }
         }
@@ -399,7 +399,7 @@
                     
                     // Redirect after short delay
                     setTimeout(() => {
-                        const redirectTo = getRedirectParam() || '/admin/dashboard/';
+                        const redirectTo = getRedirectParam() || '/admin/index.html';
                         window.location.href = redirectTo;
                     }, 1000);
                 } else {
