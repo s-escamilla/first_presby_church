@@ -17,32 +17,32 @@
         <meta property="og:type" content="website"/>
         <meta property="og:url" content="{{ client.domain }}{{ page.url }}"/>
         <meta property="og:image" content="{{ image or "/assets/images/logo-small.png" }}"/>
-        <meta property="og:image:secure_url" content="{{ image or "/assets/images/logo-small.png" }}"/>
+        <meta property="og:image:secure_url" content="{{ image or '/assets/images/logo-small.png' | url }}"/>
 
         <!--Favicons-->
         <!-- https://realfavicongenerator.net/ -->
-        <link rel="icon" type="image/png" href="/assets/favicons/favicon-96x96.png" sizes="96x96"/>
-        <link rel="icon" type="image/svg+xml" href="/assets/favicons/favicon.svg"/>
-        <link rel="shortcut icon" href="/assets/favicons/favicon.ico"/>
-        <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png"/>
+        <link rel="icon" type="image/png" href="{{ '/assets/favicons/favicon-96x96.png' | url }}" sizes="96x96"/>
+        <link rel="icon" type="image/svg+xml" href="{{ '/assets/favicons/favicon.svg' | url }}"/>
+        <link rel="shortcut icon" href="{{ '/assets/favicons/favicon.ico' | url }}"/>
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/favicons/apple-touch-icon.png' | url }}"/>
         <meta name="apple-mobile-web-app-title" content="Starter Kit"/>
-        <link rel="manifest" href="/assets/favicons/site.webmanifest"/>
+        <link rel="manifest" href="{{ '/assets/favicons/site.webmanifest' | url }}"/>
 
         <!-- Preloads -->
-        <link rel="preload" as="image" href="/assets/svgs/logo-black.svg">
-        <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/roboto-v29-latin-regular.woff2" crossorigin>
-        <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/roboto-v29-latin-700.woff2" crossorigin>
+        <link rel="preload" as="image" href="{{ '/assets/svgs/logo-black.svg' | url }}">
+        <link rel="preload" as="font" type="font/woff2" href="{{ '/assets/fonts/roboto-v29-latin-regular.woff2' | url }}" crossorigin>
+        <link rel="preload" as="font" type="font/woff2" href="{{ '/assets/fonts/roboto-v29-latin-700.woff2' | url }}" crossorigin>
 
         <!-- Sitewide Stylesheets and Scripts -->
-        <link rel="stylesheet" href="/assets/css/root.css">
-        <script defer src="/assets/js/dark.js"></script>
-        <script defer src="/assets/js/nav.js"></script>
-        <script defer src="/assets/js/events.js"></script>
-        <script defer src="/assets/js/staff-modal.js"></script>
-        <script defer src="/assets/js/communication-modal.js"></script>
-        <script defer src="/assets/js/calendar-view.js"></script>
-        <script defer src="/assets/js/event-contact-form.js"></script>
-        <script defer src="/assets/js/scroll-nav.js"></script>
+        <link rel="stylesheet" href="{{ '/assets/css/root.css' | url }}">
+        <script defer src="{{ '/assets/js/dark.js' | url }}"></script>
+        <script defer src="{{ '/assets/js/nav.js' | url }}"></script>
+        <script defer src="{{ '/assets/js/events.js' | url }}"></script>
+        <script defer src="{{ '/assets/js/staff-modal.js' | url }}"></script>
+        <script defer src="{{ '/assets/js/communication-modal.js' | url }}"></script>
+        <script defer src="{{ '/assets/js/calendar-view.js' | url }}"></script>
+        <script defer src="{{ '/assets/js/event-contact-form.js' | url }}"></script>
+        <script defer src="{{ '/assets/js/scroll-nav.js' | url }}"></script>
 
         {% block head %}{% endblock %}
 
