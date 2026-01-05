@@ -8,6 +8,7 @@
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <title>Content Manager</title>
 </head>
@@ -19,49 +20,268 @@
     <!-- Edit this script to customize the preview pane for your blog posts.  -->
     <!-- Documentation: https://decapcms.org/docs/customization/ -->
     <script type="text/babel">
-        const BlogPreview = createClass({
+        const PagePreview = createClass({
             render: function () {
-                // Get all the props from the collection
-                const data = this.props.entry.get("data").toJS();
-                const { title, author, date: rawDate, image } = data;
-                const date = typeof rawDate === "string" ? new Date(rawDate) : rawDate;
-                let formattedDate = "";
-                if (date) {
-                    formattedDate = Intl.DateTimeFormat("en-US", {
-                        month: "long",
-                        day: "numeric",
-                        year: "numeric"
-                    }).format(date);
-                }
-
-                const cover = this.props.getAsset(image);
-
-                // Create elements for the preview pane in JSX, to be processed by Babel
                 return (
-                    <div className="blog">
-                        <h1 className="title">{title}</h1>
+                    <div>
+                        <h1>{this.props.entry.getIn(["data", "title"])}</h1>
+                        <div>{this.props.widgetFor("body")}</div>
+                    </div>
+                );
+            }
+        });
+       
+        CMS.registerPreviewStyle("../assets/css/root.css");
+     
 
-                        <div className="metadata">
-                            <span className="author">{author}</span>
-                            <span className="dot"></span>
-                            <span className="date">{formattedDate}</span>
-                        </div>
+        // Page Preview with dynamic sections
+        const PageWithSectionsPreview = createClass({
+            render: function () {
+                const data = this.props.entry.get("data").toJS();
+                const { title, sections = [] } = data;
 
-                        <img src={cover?.toString()} className="cover" alt="Cover" />
+                // Helper function to render content blocks
+                const renderContentBlocks = (blocks = []) => {
+                    return blocks.map((block, idx) => {
+                        const alignment = block.alignment || 'left';
+                        const indentation = block.indentation || 'none';
+                        
+                        if (block.type === "header_block") {
+                            const HeaderTag = block.level || 'h2';
+                            let headerText = block.text;
+                            
+                            if (block.style === "highlight_last_word") {
+                                const words = block.text.split(' ');
+                                if (words.length > 1) {
+                                    const lastWord = words.pop();
+                                    headerText = (
+                                        <span>
+                                            {words.join(' ')} <span className="highlighted-word">{lastWord}</span>
+                                        </span>
+                                    );
+                                }
+                            } else if (block.style === "full_highlight") {
+                                headerText = <span className="highlighted-word">{block.text}</span>;
+                            }
+                            
+                            return React.createElement(HeaderTag, { 
+                                key: idx, 
+                                className: `align-${alignment} indent-${indentation}` 
+                            }, headerText);
+                        }
+                        
+                        if (block.type === "text_block") {
+                            // Process markdown content
+                            const htmlContent = block.content ? marked.parse(block.content) : '';
+                            
+                            return (
+                                <div 
+                                    key={idx} 
+                                    className={`body-text align-${alignment} indent-${indentation}`}
+                                    dangerouslySetInnerHTML={{ __html: htmlContent }}
+                                />
+                            );
+                        }
+                        
+                        if (block.type === "line_break") {
+                            return (
+                                <div key={idx} className={`line-break line-break-${block.spacing || 'medium'}`}></div>
+                            );
+                        }
+                        
+                        if (block.type === "button_group") {
+                            return (
+                                <div key={idx} className={`button-group align-${alignment} indent-${indentation}`}>
+                                    {(block.buttons || []).map((button, btnIdx) => (
+                                        <a 
+                                            key={btnIdx} 
+                                            href={button.buttonLink} 
+                                            className={`cs-button ${button.buttonStyle} ${button.buttonColor}`}
+                                        >
+                                            {button.buttonText}
+                                        </a>
+                                    ))}
+                                </div>
+                            );
+                        }
+                        
+                        return null;
+                    });
+                };
 
-                        <hr className="divider" />
+                // Function to render different section types as HTML
+                const renderSection = (section, index) => {
+                    const type = section.type;
 
-                        <div className="markdown">
-                            {this.props.widgetFor("body")}
+                    if (type === "text_section") {
+                        let sectionClass = "text-section cs-style";
+                        let contentStyle = {};
+                        let sectionStyle = {};
+                        
+                        // New unified background system
+                        if (section.backgroundType === "image-content" && section.backgroundImage) {
+                            sectionClass += " bg-image-content";
+                            const bgImage = this.props.getAsset(section.backgroundImage);
+                            contentStyle.backgroundImage = `url(${bgImage?.toString()})`;
+                        } else if (section.backgroundType === "color") {
+                            sectionClass += ` bg-color bg-color-${section.backgroundColor || "primary"}`;
+                        } else if (section.backgroundType === "image-white-box" && section.backgroundImage) {
+                            sectionClass += " bg-image-white-box";
+                            const bgImage = this.props.getAsset(section.backgroundImage);
+                            sectionStyle.backgroundImage = `url(${bgImage?.toString()})`;
+                        } else {
+                            sectionClass += " default-style";
+                        }
+                        
+                        return (
+                            <section key={index} className={sectionClass} style={sectionStyle}>
+                                <div className="cs-container">
+                                    <div className="text-content" style={contentStyle}>
+                                        {renderContentBlocks(section.contentBlocks)}
+                                    </div>
+                                </div>
+                            </section>
+                        );
+                    }
+
+                    if (type === "image_text_section") {
+                        const image = this.props.getAsset(section.image);
+                        const isImageLeft = section.imagePosition === "left";
+
+                        return (
+                            <section key={index} className={`image-text-section cs-style image-${section.imagePosition} ${section.styleOptions}`}>
+                                <div className="cs-container">
+                                    <div className={`content-wrapper ${isImageLeft ? 'image-left' : 'image-right'}`}>
+                                        <div className="image-container">
+                                            <img src={image?.toString()} alt={section.imageAlt} />
+                                        </div>
+                                        <div className="text-container">
+                                            <div className="content">
+                                                <div className="text-content">
+                                                    {renderContentBlocks(section.contentBlocks)}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        );
+                    }
+
+                    if (type === "hero_section") {
+                        const bgImage = this.props.getAsset(section.backgroundImage);
+                        const bgFilter = section.backgroundImageColor === "GrayScale" ? "grayscale(100%)" : "none";
+                        
+                        return (
+                            <section 
+                                key={index} 
+                                className={`hero-section cs-style ${section.styleOptions || 'Default'}`}
+                                style={{ 
+                                    backgroundImage: `url(${bgImage?.toString()})`,
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    filter: bgFilter
+                                }}
+                            >
+                                <div className="cs-container">
+                                    <div className="hero-content">
+                                        <h1 className={section.titleColor}>{section.title}</h1>
+                                        {section.subtitle && (
+                                            <p className={section.subtitleColor}>{section.subtitle}</p>
+                                        )}
+                                        {section.button && section.button.length > 0 && (
+                                            <div className="button-group">
+                                                {section.button.map((button, btnIndex) => (
+                                                    <a 
+                                                        key={btnIndex} 
+                                                        href={button.buttonLink} 
+                                                        className={`cs-button ${button.buttonStyle} ${button.buttonColor}`}
+                                                    >
+                                                        {button.buttonText}
+                                                    </a>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </section>
+                        );
+                    }
+                    
+                    if (type === "collections_section") {
+                        const sectionType = section.sectionType || 'events';
+                        
+                        return (
+                            <section key={index} className={`collections-section cs-style ${sectionType}`}>
+                                <div className="cs-container">
+                                    <h2>{section.header || "Collection Items"}</h2>
+                                    <div className="collections-preview-notice" style={{
+                                        background: '#f0f0f0',
+                                        padding: '2rem',
+                                        borderRadius: '1rem',
+                                        textAlign: 'center',
+                                        margin: '2rem 0'
+                                    }}>
+                                        <p style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>
+                                            📋 This section displays <strong>{sectionType}</strong> collection items
+                                        </p>
+                                        <p style={{ color: '#666' }}>
+                                            {sectionType === 'calendar_view' && 'Calendar view with interactive date selection'}
+                                            {sectionType === 'events' && 'List of upcoming events'}
+                                            {sectionType === 'staff' && 'Staff member profiles'}
+                                            {sectionType === 'communications' && 'Communication items'}
+                                        </p>
+                                        <p style={{ marginTop: '1rem', fontSize: '0.9rem', color: '#999' }}>
+                                            Preview not available in CMS editor. Save and view on the live page to see collection items.
+                                        </p>
+                                    </div>
+                                </div>
+                            </section>
+                        );
+                    }
+                    
+                    if (type === "event_contact_form") {
+                        return (
+                            <section key={index} className={`event-contact-form-section ${section.cssClass || ''}`} id={section.sectionId || ''}>
+                                <div className="container">
+                                    <div className="form-header">
+                                        <h2>{section.heading || 'Request an Event'}</h2>
+                                        {section.subheading && <p>{section.subheading}</p>}
+                                    </div>
+                                    <div className="event-contact-form" style={{
+                                        background: 'white',
+                                        padding: '2rem',
+                                        borderRadius: '1rem',
+                                        boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
+                                    }}>
+                                        <div style={{ textAlign: 'center', color: '#666', padding: '3rem 0' }}>
+                                            <p style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>📝 Event Contact Form</p>
+                                            <p>Form fields: Name, Phone, Email, Event Type, Event Date, Description</p>
+                                            <p style={{ marginTop: '1rem', fontSize: '0.9rem' }}>
+                                                API Endpoint: {section.apiEndpoint || '/api/event-contact'}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        );
+                    }
+
+                    return null;
+                };
+
+                return (
+                    <div id='main'>
+                        <h1 className="page-title">{title}</h1>
+                        <div className="sections">
+                            {sections.map((section, index) => renderSection(section, index))}
                         </div>
                     </div>
                 );
             }
         });
 
-        // Register the elements and styles for the "blog" collection
-        CMS.registerPreviewTemplate("blog", BlogPreview);
-        CMS.registerPreviewStyle("/admin/decap-preview-styles.css");
+        CMS.registerPreviewTemplate("pages", PageWithSectionsPreview);
     </script>
 </body>
 

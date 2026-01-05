@@ -1,0 +1,5 @@
+{
+    "layout": "layouts/page-with-sections.html",
+    "permalink": "/{{ url }}/index.html",
+    "tags": "pages"
+}

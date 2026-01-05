@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="/assets/js/admin-auth.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .dashboard-header {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .dashboard-header-content h1 {
+            color: #2d3748;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .dashboard-header-content p {
+            color: #718096;
+            font-size: 1rem;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-info {
+            text-align: right;
+        }
+
+        .user-info .user-name {
+            font-weight: 600;
+            color: #2d3748;
+            display: block;
+            font-size: 0.95rem;
+        }
+
+        .user-info .user-session {
+            font-size: 0.75rem;
+            color: #a0aec0;
+        }
+
+        .btn-logout {
+            padding: 0.5rem 1rem;
+            background: #f7fafc;
+            color: #4a5568;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+        }
+
+        .btn-logout:hover {
+            background: #fed7d7;
+            border-color: #fc8181;
+            color: #c53030;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .stat-card h3 {
+            color: #718096;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .number {
+            color: #2d3748;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .label {
+            color: #a0aec0;
+            font-size: 0.875rem;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .action-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .action-card h2 {
+            color: #2d3748;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .action-card p {
+            color: #718096;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .action-card ul {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .action-card ul li {
+            color: #4a5568;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .action-card ul li:last-child {
+            border-bottom: none;
+        }
+
+        .action-card ul li::before {
+            content: "→";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f7fafc;
+            color: #4a5568;
+            border: 2px solid #e2e8f0;
+        }
+
+        .btn-secondary:hover {
+            background: #edf2f7;
+            border-color: #cbd5e0;
+        }
+
+        .btn-success {
+            background: #48bb78;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #38a169;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(72, 187, 120, 0.4);
+        }
+
+        .icon {
+            font-size: 1.5rem;
+        }
+
+        .info-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+        }
+
+        .info-section h2 {
+            color: #2d3748;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .info-item {
+            padding: 1rem;
+            background: #f7fafc;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .info-item strong {
+            color: #2d3748;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .info-item span {
+            color: #718096;
+            font-size: 0.875rem;
+        }
+        .danger-zone{
+            background: #ff8585;
+            border-radius: 12px;
+            color:white;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+        }
+        .recent-activity {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .recent-activity h2 {
+            color: #2d3748;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .activity-item {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-info {
+            flex: 1;
+        }
+
+        .activity-info h4 {
+            color: #2d3748;
+            margin-bottom: 0.25rem;
+        }
+
+        .activity-info p {
+            color: #a0aec0;
+            font-size: 0.875rem;
+        }
+
+        .activity-time {
+            color: #a0aec0;
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .dashboard-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .stats-grid,
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <div class="dashboard-header">
+            <div class="dashboard-header-content">
+                <h1>🎯 Admin Dashboard</h1>
+                <p>Welcome back! Here's your site overview and quick access to all admin tools.</p>
+            </div>
+            <div class="user-menu">
+                <div class="user-info">
+                    <span class="user-name" id="userName">Loading...</span>
+                    <span class="user-session" id="sessionInfo">Session active</span>
+                </div>
+                <button onclick="handleLogout()" class="btn-logout">Logout</button>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Pages</h3>
+                <div class="number" id="pageCount">0</div>
+                <div class="label">Published pages</div>
+            </div>
+            <div class="stat-card">
+                <h3>Blog Posts</h3>
+                <div class="number" id="blogCount">0</div>
+                <div class="label">Published posts</div>
+            </div>
+            <div class="stat-card">
+                <h3>Last Updated</h3>
+                <div class="number" id="lastUpdate">—</div>
+                <div class="label">Content modified</div>
+            </div>
+            <div class="stat-card">
+                <h3>Status</h3>
+                <div class="number" style="color: #48bb78;">✓</div>
+                <div class="label">All systems operational</div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+          <!-- Logo Configuration -->
+            <div class="action-card">
+                <h2><span class="icon">🎨</span> Logo & Branding</h2>
+                <p>Update header logo and branding elements</p>
+                <ul>
+                    <li>Change site logo</li>
+                    <li>Upload new logo files (SVG/PNG)</li>
+                    <li>Update logo dimensions</li>
+                    <li>Manage brand assets</li>
+                </ul>
+                <a href="/admin/#/collections/settings/entries/site" class="btn btn-secondary">Manage Logo</a>
+            </div>
+
+            <!-- Site Configuration -->
+            <div class="action-card">
+                <h2><span class="icon">⚙️</span> Site Settings</h2>
+                <p>Configure global site settings and contact information</p>
+                <ul>
+                    <li>Update contact details</li>
+                    <li>Manage social media links</li>
+                    <li>Edit site metadata</li>
+                    <li>Configure domain settings</li>
+                </ul>
+                <a href="/admin/#/collections/settings" class="btn btn-secondary">Site Settings</a>
+            </div>
+
+            
+            
+        </div>
+
+        <!-- System Information -->
+        <div class="info-section">
+            <h2>📊 System Information</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <strong>Site Name</strong>
+                    <span id="siteName">Intermediate Website Kit</span>
+                </div>
+                <div class="info-item">
+                    <strong>Version</strong>
+                    <span id="siteVersion">2.0.1</span>
+                </div>
+                <div class="info-item">
+                    <strong>Framework</strong>
+                    <span>11ty (Eleventy) + SASS</span>
+                </div>
+                <div class="info-item">
+                    <strong>CMS</strong>
+                    <span>Decap CMS</span>
+                </div>
+                <div class="info-item">
+                    <strong>Node Version</strong>
+                    <span id="nodeVersion">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <strong>Build Status</strong>
+                    <span style="color: #48bb78;">✓ Ready</span>
+                </div>
+            </div>
+        </div>
+
+      
+        <div class="danger-zone">
+            <h2>Danger Zone
+                <h4> Practice caution making changes in this section</h4>
+            </h2>
+          <!-- Content Management -->
+           <div class="quick-actions">
+            <div class="action-card">
+                <h2><span class="icon">📝</span>Site Content Management System</h2>
+               <p>Create/modifiy/delete site pages. View all site content.</p>
+                <strong><h3 style="background-color: rgb(255, 110, 110); color:white; border-radius: 4px; padding: 0.25rem 0.5rem; margin-bottom: 1vh;">
+                    Excercise caution when making changes to live content.<button class="btn btn-secondary">  See documentation</button>
+                </h3></strong>
+                <a href="/admin/" class="btn btn-primary">Open CMS Collections →</a>
+            </div>
+            
+            <div class="action-card">
+                <h2><span class="icon">🛠️</span> Development Tools</h2>
+                <p>Access development utilities and build tools.</p>
+                <ul>
+                    <li>View build logs</li>
+                    <li>Check deployment status</li>
+                    <li>Test CSS/JS changes</li>
+                    <li>Clear cache</li>
+                </ul>
+                <button onclick="toggleDevTools()" class="btn btn-secondary">Dev Tools</button>
+            </div>
+        </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ===== AUTHENTICATION CHECK =====
+        // Require authentication before page loads
+        if (!AdminAuth.requireAuth('/admin/dashboard/')) {
+            // Will redirect to login if not authenticated
+            document.body.style.display = 'none';
+        }
+
+        // Initialize authentication monitoring
+        AdminAuth.init();
+
+        // Handle logout
+        function handleLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                AdminAuth.logout();
+            }
+        }
+
+        // Update user info in header
+        function updateUserInfo() {
+            const user = AdminAuth.getCurrentUser();
+            if (user) {
+                document.getElementById('userName').textContent = user.name || user.username;
+                document.getElementById('sessionInfo').textContent = 
+                    `Session expires in ${AdminAuth.getTimeRemaining()}`;
+            }
+        }
+
+        // ===== DASHBOARD FUNCTIONALITY =====
+        
+        // Load site statistics
+        async function loadStats() {
+            try {
+                // This is a simple example - you can enhance this to actually count files
+                // or fetch data from your build process
+                
+                // Simulate loading stats
+                const stats = {
+                    pages: 7, // Example count
+                    blogs: 3, // Example count
+                    lastUpdate: new Date().toLocaleDateString()
+                };
+
+                document.getElementById('pageCount').textContent = stats.pages;
+                document.getElementById('blogCount').textContent = stats.blogs;
+                document.getElementById('lastUpdate').textContent = stats.lastUpdate;
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+
+        // Toggle dev tools section
+        function toggleDevTools() {
+            alert('Development Tools\n\nQuick Actions:\n• Run: npm start\n• Build: npm run build\n• Preview: npm run preview\n\nFor more advanced options, use your terminal.');
+        }
+
+        // Get Node version if available
+        function checkNodeVersion() {
+            // This would need to be populated from your build process
+            // For now, we'll just show a message
+            document.getElementById('nodeVersion').textContent = 'Check terminal';
+        }
+
+        // Initialize dashboard
+        window.addEventListener('DOMContentLoaded', () => {
+            // Update user info
+            updateUserInfo();
+            
+            // Refresh user info every minute
+            setInterval(updateUserInfo, 60000);
+            
+            loadStats();
+            checkNodeVersion();
+            
+            // Add current date to site info
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            
+            console.log('Dashboard loaded:', dateStr);
+        });
+
+        // Optional: Add keyboard shortcut to quickly open CMS
+        document.addEventListener('keydown', (e) => {
+            // Press 'C' to open CMS
+            if (e.key === 'c' || e.key === 'C') {
+                if (e.ctrlKey || e.metaKey) {
+                    window.location.href = '/admin/';
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

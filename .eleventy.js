@@ -19,7 +19,9 @@ const javascript = require("./src/config/processors/javascript");
 
 // 🛠️ Utilities
 const filterPostDate = require("./src/config/filters/postDate");
+const filterPostDateTime = require("./src/config/filters/postDateTime");
 const filterIsoDate = require("./src/config/filters/isoDate");
+const filterMarkdown = require("./src/config/filters/markdown");
 const isProduction = process.env.ELEVENTY_ENV === "PROD";
 
 module.exports = function (eleventyConfig) {
@@ -78,6 +80,9 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy("./src/admin"); // CMS admin files
     eleventyConfig.addPassthroughCopy("./src/_redirects"); // Redirect rules
 
+    // Ignore admin folder from template processing
+    eleventyConfig.ignores.add("./src/admin/**");
+
     // ═════════════════════════════════════════════════════════════════════════
     // FILTERS
     // Transform data in templates at build time
@@ -93,12 +98,30 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addFilter("postDate", filterPostDate);
 
     /*
+     * 📅 Human-Readable Date & Time Formatting Filter
+     * Converts JavaScript dates to human-readable format with time
+     * Usage: {{ "2023-12-02T14:30:00" | postDateTime }}
+     * Powered by Luxon: https://moment.github.io/luxon/api-docs/
+     */
+    eleventyConfig.addFilter("postDateTime", filterPostDateTime);
+
+    /*
      * 📅 ISO Date Formatting Filter
      * Converts JavaScript dates to ISO 8601 format
      * Usage: {{ "2023-12-02" | isoDate }}
      * Powered by Luxon: https://moment.github.io/luxon/api-docs/
      */
     eleventyConfig.addFilter("isoDate", filterIsoDate);
+
+    /*
+     * 📝 Markdown Filter
+     * Converts markdown text to HTML
+     * Usage: {{ content | markdown | safe }}
+     * Powered by markdown-it: https://github.com/markdown-it/markdown-it
+     */
+    eleventyConfig.addFilter("markdown", filterMarkdown);
+
+    /*
 
     // ═════════════════════════════════════════════════════════════════════════
     // SHORTCODES

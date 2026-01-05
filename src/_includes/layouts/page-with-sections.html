@@ -1,0 +1,29 @@
+{# Import components (like importing React components) #}
+{% import "components/hero-section.html" as HeroSection %}
+{% import "components/text-section.html" as TextSection %}
+{% import "components/image-text-section.html" as ImageTextSection %}
+{% import "components/collections-section.html" as CollectionsSection %}
+{% import "components/event-contact-form.html" as EventContactForm %}
+
+{% extends "layouts/base.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+    {% for section in sections %}
+        {% set sectionId = "section-" ~ loop.index %}
+        {# Call components like React components with props #}
+        {% if section.type == "text_section" %}
+            <div id="{{ sectionId }}">{{ TextSection.render(section) }}</div>
+        {% elif section.type == "image_text_section" %}
+            <div id="{{ sectionId }}">{{ ImageTextSection.render(section) }}</div>
+        {% elif section.type == "hero_section" %}
+            {{ HeroSection.render(section, sections) }}
+        {% elif section.type == "collections_section" %}
+            <div id="{{ sectionId }}">{{ CollectionsSection.render(section, collections) }}</div>
+        {% elif section.type == "event_contact_form" %}
+            <div id="{{ sectionId }}">{% include "components/event-contact-form.html" %}</div>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

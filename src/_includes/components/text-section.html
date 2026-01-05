@@ -1,0 +1,73 @@
+{# Text Section Component - Like a React Functional Component #}
+{% macro render(section) %}
+{% set sectionClass = "default-style" %}
+{% set contentStyle = "" %}
+{% set sectionStyle = "" %}
+
+{# Unified background system #}
+{% if section.backgroundType == "image-content" and section.backgroundImage %}
+    {% set sectionClass = "bg-image-content" %}
+    {% set contentStyle = "background-image: url('" + section.backgroundImage + "');" %}
+{% elif section.backgroundType == "color" %}
+    {% set sectionClass = "bg-color bg-color-" + (section.backgroundColor or "primary") %}
+{% elif section.backgroundType == "image-white-box" and section.backgroundImage %}
+    {% set sectionClass = "bg-image-white-box" %}
+    {% set sectionStyle = "background-image: url('" + section.backgroundImage + "');" %}
+{% endif %}
+
+<section class="text-section cs-style {{ sectionClass }}" {% if sectionStyle %}style="{{ sectionStyle }}"{% endif %}>
+    <div class="cs-container">
+        <div class="text-content" {% if contentStyle %}style="{{ contentStyle }}"{% endif %}>
+            {% for block in section.contentBlocks %}
+                {% if block.type == "header_block" %}
+                    {% if block.style == "highlight_last_word" %}
+                        {% set words = block.text.split(' ') %}
+                        {% if words | length > 1 %}
+                            {% set lastWord = words.pop() %}
+                            {% set firstPart = words | join(' ') %}
+                            {% set headerText = firstPart + ' <span class="highlighted-word">' + lastWord + '</span>' %}
+                        {% else %}
+                            {% set headerText = block.text %}
+                        {% endif %}
+                    {% elseif block.style == "full_highlight" %}
+                            {% set headerText = '<span class="highlighted-word">' + block.text + '</span>' %}
+                    {% else %}
+                        {% set headerText = block.text %}
+                    {% endif %}
+                    
+                    {% if block.level == "h1" %}
+                        <h1 class="align-{{ block.alignment or 'left' }} indent-{{ block.indentation or 'none' }}">{{ headerText | safe }}</h1>
+                    {% elif block.level == "h2" %}
+                        <h2 class="align-{{ block.alignment or 'left' }} indent-{{ block.indentation or 'none' }}">{{ headerText | safe }}</h2>
+                    {% elif block.level == "h3" %}
+                        <h3 class="align-{{ block.alignment or 'left' }} indent-{{ block.indentation or 'none' }}">{{ headerText | safe }}</h3>
+                    {% elif block.level == "h4" %}
+                        <h4 class="align-{{ block.alignment or 'left' }} indent-{{ block.indentation or 'none' }}">{{ headerText | safe }}</h4>
+                    {% elif block.level == "h5" %}
+                        <h5 class="align-{{ block.alignment or 'left' }} indent-{{ block.indentation or 'none' }}">{{ headerText | safe }}</h5>
+                    {% elif block.level == "h6" %}
+                        <h6 class="align-{{ block.alignment or 'left' }} indent-{{ block.indentation or 'none' }}">{{ headerText | safe }}</h6>
+                    {% endif %}
+                    
+                {% elif block.type == "text_block" %}
+                    <div class="body-text align-{{ block.alignment or 'left' }} indent-{{ block.indentation or 'none' }}">
+                        {{ block.content | markdown | safe }}
+                    </div>
+                    
+                {% elif block.type == "line_break" %}
+                    <div class="line-break line-break-{{ block.spacing }}"></div>
+                    
+                {% elif block.type == "button_group" %}
+                    {% if block.buttons | length > 0 %}
+                    <div class="button-group align-{{ block.alignment or 'left' }} indent-{{ block.indentation or 'none' }}">
+                        {% for button in block.buttons %}
+                            <a href="{{ button.buttonLink }}" class="cs-button {{ button.buttonStyle }} {{ button.buttonColor }}">{{ button.buttonText }}</a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endmacro %}
