@@ -219,7 +219,7 @@ All styles are inline for easy portability. To customize:
 
 - **Dashboard**: Edit styles in `/src/admin/dashboard.html`
 - **Login**: Edit styles in `/src/admin/login.html`
-- **CMS overlay**: Edit styles in `/src/admin/index.html`
+- **CMS overlay**: Edit styles in `/src/first_presby_church/admin/index.html`
 
 ## 📚 Next Steps
 

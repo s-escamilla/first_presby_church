@@ -265,7 +265,7 @@ Styling the Decap preview pane This template includes custom styles for the Deca
 
 1. How it works:
 
-The preview styles are defined in /admin/decap-preview-styles.css. The CMS preview script in /admin/index.html:
+The preview styles are defined in /admin/decap-preview-styles.css. The CMS preview script in /first_presby_church/admin/index.html:
 
 -   pulls the props from the collection
 -   creates the DOM elements
@@ -273,7 +273,7 @@ The preview styles are defined in /admin/decap-preview-styles.css. The CMS previ
 
 2. How to update or customize:
 
-Edit /admin/decap-preview-styles.css and the preview pane script in /admin/index.html to match your site's branding or layout changes. Use Decap's documentation on [customizing the preview pane](https://decapcms.org/docs/customization/)
+Edit /admin/decap-preview-styles.css and the preview pane script in /first_presby_church/admin/index.html to match your site's branding or layout changes. Use Decap's documentation on [customizing the preview pane](https://decapcms.org/docs/customization/)
 
 3.Notes
 
@@ -399,7 +399,7 @@ With slight modifications for usage with 11ty, this setup guide for DecapBridge 
 > 1. Login to your Netlify account
 > 2. Navigate to Projects/Your-Site
 > 3. Navigate to Project Configuration/Identity and delete the Netlify Identity instance. This will delete your users as well. They will have to be re-created in decapbridge later.
-> 4. Delete the Netlify Identity script in src/index.html and in src/admin/index.html
+> 4. Delete the Netlify Identity script in src/index.html and in src/first_presby_church/admin/index.html
 
 ### On decapbridge.com:
 
