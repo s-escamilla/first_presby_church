@@ -1,6 +1,6 @@
 {# Hero Section Component - Like a React Functional Component #}
 {% macro render(section, allSections) %}
-<section class="hero-section cs-style {{ section.styleOptions }} {{ section.backgroundImageColor }}" style="background-image: url('{{ section.backgroundImage }}')">
+<section class="hero-section cs-style {{ section.styleOptions }} {{ section.backgroundImageColor }}" style="background-image: url('{{ section.backgroundImage | url }}')">
     <div class="cs-container">
         <div class="hero-content">
             <h1 class="{{ section.titleColor }}">{{ section.title }}</h1>

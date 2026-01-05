@@ -4,7 +4,7 @@
     <div class="cs-container">
         <div class="content-wrapper {% if section.imagePosition == 'left' %}image-left{% else %}image-right{% endif %}">
             <div class="image-container">
-                <img src="{{ section.image }}" alt="{{ section.imageAlt }}" loading="lazy">
+                <img src="{{ section.image | url }}" alt="{{ section.imageAlt }}" loading="lazy">
             </div>
             <div class="text-container">
                 <div class="content">

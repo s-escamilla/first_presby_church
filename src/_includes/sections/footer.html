@@ -6,7 +6,7 @@
     <div class="cs-container">
         <!-- Logo Group -->
         <div class="cs-logo-group">
-            <a aria-label="go back to home" class="cs-logo" href="/">
+            <a aria-label="go back to home" class="cs-logo" href="{{ '/' | url }}">
                 <img class="cs-logo-img" aria-hidden="true" loading="lazy" decoding="async" src="{{ '/assets/images/pcusa_logo.png' | url }}" alt="logo" width="240" height="32">
             </a>
             <p class="cs-text">
@@ -35,7 +35,7 @@
             {% for page in collections.pages | sort(attribute='data.navOrder') %}
                
                 <li class="cs-nav-li">
-                    <a class="cs-nav-link" href="{{ page.url }}">{{ page.data.title }}</a>
+                    <a class="cs-nav-link" href="{{ page.url | url }}">{{ page.data.title }}</a>
                 </li>
             {% endfor %}
         </ul>

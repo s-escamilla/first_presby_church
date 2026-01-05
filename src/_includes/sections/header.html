@@ -10,17 +10,17 @@
     </head>
     <div class="cs-container">
         <!--Nav Logo-->
-        <a href="/" class="cs-logo" aria-label="{{ client.name }} Home page">
+        <a href="{{ '/' | url }}" class="cs-logo" aria-label="{{ client.name }} Home page">
             {% if client.logo.primary %}
             
-                <img src="{{ client.logo.primary }}" alt="{{ client.logo.alt }}" width="{{ client.logo.width }}" height="{{ client.logo.height }}" aria-hidden="true" decoding="async">
+                <img src="{{ client.logo.primary | url }}" alt="{{ client.logo.alt }}" width="{{ client.logo.width }}" height="{{ client.logo.height }}" aria-hidden="true" decoding="async">
             {% else %}
                 <!-- Fallback to icon + text if primary logo not set -->
                 {% if client.logo.icon %}
-                    <img src="{{ client.logo.icon }}" alt="" width="210" height="29" aria-hidden="true" decoding="async">
+                    <img src="{{ client.logo.icon | url }}" alt="" width="210" height="29" aria-hidden="true" decoding="async">
                 {% endif %}
                 {% if client.logo.text %}
-                    <img src="{{ client.logo.text }}" alt="" width="210" height="40" aria-hidden="true" decoding="async">
+                    <img src="{{ client.logo.text | url }}" alt="" width="210" height="40" aria-hidden="true" decoding="async">
                 {% endif %}
             {% endif %}
         </a>
@@ -42,7 +42,7 @@
                {%- for page in collections.pages | sort(attribute='data.navOrder') -%}
                     {%- if page.data.title != 'Home' and page.data.showInNav != false -%}
                         <li class="cs-li">
-                            <a href=/{{page.data.url}} class="cs-li-link">
+                            <a href="{{ page.url | url }}" class="cs-li-link">
                                 {{page.data.title}}
                             </a>
                         </li>
@@ -53,7 +53,7 @@
                    
             </div>
         </nav>
-        <a href="/give/" class="cs-button Outline Primary cs-nav-button">Donate</a>
+        <a href="{{ '/give/' | url }}" class="cs-button Outline Primary cs-nav-button">Donate</a>
         <!--Dark Mode toggle, uncomment button code if you want to enable a dark mode toggle-->
      
     </div>

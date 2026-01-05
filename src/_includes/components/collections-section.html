@@ -153,7 +153,7 @@
                                 <h4 class="staff-name">{{ item.data.name }}</h4>
                                 <h5 class="staff-title">{{ item.data.title }}</h5>
                             </div>
-                            <img src="{{ item.data.photo }}" alt="{{ item.data.name }}" class="staff-photo">
+                            <img src="{{ item.data.photo | url }}" alt="{{ item.data.name }}" class="staff-photo">
 
                             <button class="read-more-btn" data-staff-index="{{ loop.index0 }}">Read More</button>
                             

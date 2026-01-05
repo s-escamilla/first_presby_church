@@ -7,12 +7,12 @@
 {# Unified background system #}
 {% if section.backgroundType == "image-content" and section.backgroundImage %}
     {% set sectionClass = "bg-image-content" %}
-    {% set contentStyle = "background-image: url('" + section.backgroundImage + "');" %}
+    {% set contentStyle = "background-image: url('" + (section.backgroundImage | url) + "');" %}
 {% elif section.backgroundType == "color" %}
     {% set sectionClass = "bg-color bg-color-" + (section.backgroundColor or "primary") %}
 {% elif section.backgroundType == "image-white-box" and section.backgroundImage %}
     {% set sectionClass = "bg-image-white-box" %}
-    {% set sectionStyle = "background-image: url('" + section.backgroundImage + "');" %}
+    {% set sectionStyle = "background-image: url('" + (section.backgroundImage | url) + "');" %}
 {% endif %}
 
 <section class="text-section cs-style {{ sectionClass }}" {% if sectionStyle %}style="{{ sectionStyle }}"{% endif %}>
