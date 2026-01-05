@@ -1,0 +1,345 @@
+<!-- A fully fleshed-out <head>, dynamically changing based on client.json and the page front matter -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Standard meta tags -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Lorem markdownum tardantis unam mitissima dissimulator inposuit   corpus sintque tura tremenda, nec coetum.">
+        <link rel="canonical" href="https://www.example.com/blog/acuti-modo/">
+        <meta name="generator" content="Eleventy v3.1.2">
+
+        <!--Social Media Display-->
+        <meta property="og:title" content="Acuti modo"/>
+        <meta property="og:description" content="Lorem markdownum tardantis unam mitissima dissimulator inposuit   corpus sintque tura tremenda, nec coetum."/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:url" content="https://www.example.com/blog/acuti-modo/"/>
+        <meta property="og:image" content="/assets/images/landing.jpg"/>
+        <meta property="og:image:secure_url" content="/assets/images/landing.jpg"/>
+
+        <!--Favicons-->
+        <!-- https://realfavicongenerator.net/ -->
+        <link rel="icon" type="image/png" href="/assets/favicons/favicon-96x96.png" sizes="96x96"/>
+        <link rel="icon" type="image/svg+xml" href="/assets/favicons/favicon.svg"/>
+        <link rel="shortcut icon" href="/assets/favicons/favicon.ico"/>
+        <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png"/>
+        <meta name="apple-mobile-web-app-title" content="Starter Kit"/>
+        <link rel="manifest" href="/assets/favicons/site.webmanifest"/>
+
+        <!-- Preloads -->
+        <link rel="preload" as="image" href="/assets/svgs/logo-black.svg">
+        <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/roboto-v29-latin-regular.woff2" crossorigin>
+        <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/roboto-v29-latin-700.woff2" crossorigin>
+
+        <!-- Sitewide Stylesheets and Scripts -->
+        <link rel="stylesheet" href="/assets/css/root.css">
+        <script defer src="/assets/js/dark.js"></script>
+        <script defer src="/assets/js/nav.js"></script>
+
+        
+    <link rel="stylesheet" href="/assets/css/blog.css">
+
+    <!-- To ensure proper validation, prevent errors, and encourage developers to check, schema's are an opt-in feature. They're very bespoke and requires some customising  -->
+    <!-- Uncomment the code below to enable Structured Data, and test it when you deploy to Netlify - https://developers.google.com/search/docs/appearance/structured-data -->
+    <!-- <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://www.example.com/blog/acuti-modo/"
+        },
+        "headline": "Acuti modo",
+        "description": "Lorem markdownum tardantis unam mitissima dissimulator inposuit   corpus sintque tura tremenda, nec coetum.",
+        
+            "image": {
+                "@type": "ImageObject",
+                "url": "https://www.example.com/assets/images/landing.jpg",
+                "width": 1200,
+                "height": 630
+            },
+        
+        "datePublished": "2023-06-08T11:26:46.705-04:00",
+        "dateModified": "2023-06-08T11:26:46.705-04:00",
+        
+            "author": {
+                "@type": "Person",
+                "name": "Code Stitch"
+            },
+        
+        
+            "publisher": {
+                "@type": "Organization",
+                "name": "Code Stitch Web Designs",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://www.example.com/assets/svgs/logo-black.svg",
+                    "width": 210,
+                    "height": 28
+                }
+            }
+        
+    }
+</script> -->
+
+
+        <title>Acuti modo</title>
+    </head>
+    <body>
+        <!--Screen reader skip main nav-->
+        <a class="skip" aria-label="skip to main content" href="#main">Click To Skip To Main Content</a>
+
+        <!-- ============================================ -->
+<!--                 Navigation                   -->
+<!-- ============================================ -->
+
+<header id="cs-navigation">
+    <head>
+        <script>
+            CMS.registerPreviewTemplate("pages", PageWithSectionsPreview);
+        </script>
+    </head>
+    <div class="cs-container">
+        <!--Nav Logo-->
+        <a href="/" class="cs-logo" aria-label="Code Stitch Web Designs Home page">
+            
+            
+                <img src="/assets/svgs/fpcGoshen_combined.svg" alt="FPC Goshen Logo" width="210" height="40" aria-hidden="true" decoding="async">
+            
+        </a>
+        <!--Navigation List-->
+        <nav class="cs-nav" aria-label="main navigation">
+            <!--Mobile Nav Toggle-->
+            <button class="cs-toggle" id="cs-toggle" aria-expanded="false" aria-controls="cs-ul-wrapper" aria-label="mobile menu toggle" aria-haspopup="menu">
+                <span class="cs-box" aria-hidden="true">
+                    <span class="cs-line cs-line1" aria-hidden="true"></span>
+                    <span class="cs-line cs-line2" aria-hidden="true"></span>
+                    <span class="cs-line cs-line3" aria-hidden="true"></span>
+                </span>
+            </button>
+            <!-- We need a wrapper div so we can set a fixed height on the cs-ul in case the nav list gets too long from too many dropdowns being opened and needs to have an overflow scroll. This wrapper acts as the background so it can go the full height of the screen and not cut off any overflowing nav items while the cs-ul stops short of the bottom of the screen, which keeps all nav items in view no matter how many there are-->
+            <div class="cs-ul-wrapper" id="cs-ul-wrapper" inert>
+                <ul id="cs-expanded" class="cs-ul">
+                <li class="cs-li">
+                            <a href=/anothertest class="cs-li-link">
+                                another test
+                            </a>
+                        </li><li class="cs-li">
+                            <a href=/test class="cs-li-link">
+                                testing
+                            </a>
+                        </li><li class="cs-li">
+                            <a href=/samplepage class="cs-li-link">
+                                sample page
+                            </a>
+                        </li><li class="cs-li">
+                            <a href=/about class="cs-li-link">
+                                about
+                            </a>
+                        </li>
+            </ul>
+                   
+            </div>
+        </nav>
+        <a href="/contact/" class="cs-button-header cs-nav-button">Donate</a>
+        <!--Dark Mode toggle, uncomment button code if you want to enable a dark mode toggle-->
+        <button id="dark-mode-toggle" aria-label="dark mode toggle" aria-pressed="false">
+            <img class="cs-moon" aria-hidden="true" src="/assets/svgs/moon.svg" decoding="async" alt="" width="15" height="15">
+            <img class="cs-sun" aria-hidden="true" src="/assets/svgs/sun.svg" decoding="async" alt="" width="15" height="15">
+        </button>
+    </div>
+</header>
+        <main id="main">
+            
+    <!-- ============================================ -->
+    <!--                   Banner                     -->
+    <!-- ============================================ -->
+
+    <div id="banner-310">
+        <div class="cs-container"></div>
+        <!--Background Image-->
+        <picture class="cs-background">
+            <!--Mobile Image-->
+            <source media="(max-width: 600px)" srcset="/assets/images/cabinets-02a77caf.avif" type="image/avif">
+            <source media="(max-width: 600px)" srcset="/assets/images/cabinets-8561c7bd.webp" type="image/webp">
+            <source media="(max-width: 600px)" srcset="/assets/images/cabinets-d80c54ed.jpeg" type="image/jpeg">
+            <!--Tablet Image-->
+            <source media="(max-width: 1024px)" srcset="/assets/images/cabinets-d770d4d5.avif" type="image/avif">
+            <source media="(max-width: 1024px)" srcset="/assets/images/cabinets-8b0b65c9.webp" type="image/webp">
+            <source media="(max-width: 1024px)" srcset="/assets/images/cabinets-67ad1376.jpeg" type="image/jpeg">
+            <!--Desktop Image-->
+            <source media="(min-width: 1024px)" srcset="/assets/images/cabinets-37bbb8fc.avif" type="image/avif">
+            <source media="(min-width: 1024px)" srcset="/assets/images/cabinets-f2d76fc4.webp" type="image/webp">
+            <source media="(min-width: 1024px)" srcset="/assets/images/cabinets-898a22d4.jpeg" type="image/jpeg">
+            <img src="/assets/images/cabinets-898a22d4.jpeg" alt="library" width="1920" height="482" decoding="async">
+        </picture>
+    </div>
+
+    <!-- ============================================ -->
+    <!--                Post Content                  -->
+    <!-- ============================================ -->
+
+    <div id="single-article">
+        <div class="cs-container">
+            <article class="cs-article-post">
+                <picture class="cs-article-image">
+                    <!--Mobile Image-->
+                    <source media="(max-width: 600px)" srcset="/assets/images/landing-8cbfee0f.avif" type="image/avif">
+                    <source media="(max-width: 600px)" srcset="/assets/images/landing-5eaa744f.webp" type="image/webp">
+                    <source media="(max-width: 600px)" srcset="/assets/images/landing-bd65effb.jpeg" type="image/jpeg">
+                    <!--Tablet Image-->
+                    <source media="(max-width: 1024px)" srcset="/assets/images/landing-e1386368.avif" type="image/avif">
+                    <source media="(max-width: 1024px)" srcset="/assets/images/landing-4fbdff6b.webp" type="image/webp">
+                    <source media="(max-width: 1024px)" srcset="/assets/images/landing-00bf8726.jpeg" type="image/jpeg">
+                    <!--Desktop Image-->
+                    <source media="(min-width: 1024px)" srcset="/assets/images/landing-b05f936c.avif" type="image/avif">
+                    <source media="(min-width: 1024px)" srcset="/assets/images/landing-9269671e.webp" type="image/webp">
+                    <source media="(min-width: 1024px)" srcset="/assets/images/landing-f82d3ded.jpeg" type="image/jpeg">
+                    <img src="/assets/images/landing-f82d3ded.jpeg" alt="" width="800" height="400" loading="lazy" decoding="async" aria-hidden="true">
+                </picture>
+                <div class="cs-article-group">
+                    <h1 class="cs-article-title">Acuti modo</h1>
+                    <div class="cs-author-group">
+                        <picture class="cs-author-img">
+                            <img src="/assets/svgs/profile.svg" alt="Profile icon" width="32" height="32" decoding="async" loading="lazy" aria-hidden="true"/>
+                        </picture>
+                        <span class="cs-author-name">Code Stitch</span>
+                        <span aria-hidden="true" class="cs-dot"></span>
+                        <span class="cs-date">Jun 8, 2023</span>
+                    </div>
+                </div>
+                <section class="cs-article-content">
+                    <h2>Lacerans aliter tetigit praeterea rite</h2>
+<p>Lorem markdownum tardantis unam mitissima dissimulator inposuit corpus sintque tura tremenda, nec coetum. Est limen Isthmo sagittas patres emerguntque anxia <a href="http://www.morte.com/parvo.html">defenderet</a> illi, est.</p>
+<ul>
+<li>Sua ille submittere viribus verba visa Myconon</li>
+<li>Qvem nec</li>
+<li>Frena prior rauco iaculum enim</li>
+<li>Modo referat</li>
+<li>Tibi mihi sumit bibit censuque licentia consistite</li>
+<li>Sumptis Iunonis muneris quiete haec tori</li>
+</ul>
+<h2>Aut pedum tendit ut raptae</h2>
+<p>Est vicinia, est herba ut et <a href="http://pars.net/iamcum">duro</a>, agnosse dicitur spectator gracili aquarum. <strong>Amore adfer metam</strong> queri quartus cunctas ego.</p>
+<p>Tectis Iovemque moriens fraternaeque Gorgonei equosque Oceanumque, huius corporis, contigerant metu vecta patietur versasse. Et undis superbus? Cura cortice saepe admisitque tamen iuvenum, vivere Lemnicolae est vidi dilapsa ianua gelidum, Ismenus. Est dic lacertos regnum quippe certo, ut vultus tollere.</p>
+<h2>Iacentes temptabat</h2>
+<p>Novissima adfixa declinat Labros et librat herbida se sacro amplectitur moenia: parcite nam quoque pugnat non quam tot. Sole et enim inundet? Ecce urbesque <em>obliquis</em>, non patietur fuga fixa feros horruit <a href="http://www.postquam.org/gravatumiphis.html">ferox tui</a>, de.</p>
+<ol>
+<li>Argentea ait exstabant trames</li>
+<li>Nocti liquidum Minervae Cerberus quas</li>
+<li>Neque removente</li>
+</ol>
+<h2>Respondere prior si ingemit bellare</h2>
+<p>Cadme tetigit in luctus minor mulcebunt tempora, utque sua semper essem cultrosque <strong>enses</strong> praecipitem hunc <strong>vestris</strong>. Restantem iussit poena; quod vendit electarumque mendacem nec sedens quidem Iovi torta cruribus, et? Venit alvum <em>anima</em>! Manibusque idem <em>Aconteus ducat</em> multamque et tibi Siphnon; mitissima devenit aut poscitur flumina nymphas revocare obstitit Lyciaeque Meleagros fors.</p>
+<p>Orbem dolendi corpore hic <a href="http://paruit.com/sineloqui.html">flamma vertere recurvas</a>, da pedes calido unus armis relinquunt, <a href="http://alumnaesibi.com/unda">flores Minervae formam</a>. Caelo <a href="http://invirginibus.org/trahuntur">inposuit</a> viribus semper, vesci excipit facta putes. Patitur attonitos acutior dum liquefacta nostra habebat. Duabus victus me suae viscera natorum ferox contulerat, de tuus Pasiphaeia ruunt protinus?</p>
+<p><em>Multis soror</em>, mundi paruerit quietem in, temeraria velantque guttura temerarius candens prostravit vera operatus, ut fecimus. Gyaros quaesiti in, a frustra, iacentia hosti. Suae iamque. Sustinet crimen toris, oves hanc est causa tum paravi phocen in natas, crudelis infra erat minimo? Inquit et <strong>loqui studiisque Alpheos</strong> venti spectata velocior <a href="http://www.animiquetantaque.net/atulterius.aspx">fida</a> Iove habet Cometen rediit; tulisset!</p>
+
+                </section>
+            </article>
+        </div>
+
+        <!-- ============================================ -->
+<!--                Featured Posts                -->
+<!-- ============================================ -->
+
+<div id="blog-sidebar">
+    <!--Featured-->
+    <div class="cs-featured-group">
+        <span class="cs-sidebar-header">Featured Posts</span><a class="cs-sidebar-link" href="/blog/canitiem-saxa/">
+                <picture class="cs-sidebar-img">
+                    <img src="/assets/images/landing-5029a198.jpeg" alt="" width="60" height="60" loading="lazy" decoding="async">
+                </picture>
+                <div class="cs-content-group">
+                    <h3 class="cs-sidebar-title">Canitiem Saxa</h3>
+                    <span class="cs-sidebar-date">Jun 8, 2023</span>
+                </div>
+            </a></div>
+</div>
+    </div>
+
+        </main>
+        <!-- ============================================ -->
+<!--                   Footer                     -->
+<!-- ============================================ -->
+
+<footer id="cs-footer-275">
+    <div class="cs-container">
+        <!-- Logo Group -->
+        <div class="cs-logo-group">
+            <a aria-label="go back to home" class="cs-logo" href="/">
+                <img class="cs-logo-img" aria-hidden="true" loading="lazy" decoding="async" src="/assets/svgs/logo-light.svg" alt="logo" width="240" height="32">
+            </a>
+            <p class="cs-text">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi elementum tincidunt vitae velit dolor cras tellus nisl habitant. Consectetur pellentesque dignissim sed amet.
+            </p>
+            <div class="cs-social">
+                <a class="cs-social-link" aria-label="visit google profile" href="https://maps.app.goo.gl/TEdS5KoLC9ZcULuQ6" target="_blank" rel="noopener">
+                    <img class="cs-social-img" aria-hidden="true" loading="lazy" decoding="async" src="/assets/svgs/google.svg" alt="google" width="11" height="11">
+                </a>
+                <a class="cs-social-link" aria-label="visit facebook profile" href="https://www.facebook.com/" target="_blank" rel="noopener">
+                    <img class="cs-social-img" aria-hidden="true" loading="lazy" decoding="async" src="/assets/svgs/facebook.svg" alt="facebook" width="6" height="11">
+                </a>
+                <a class="cs-social-link" aria-label="visit instagram profile" href="https://www.instagram.com/" target="_blank" rel="noopener">
+                    <img class="cs-social-img" aria-hidden="true" loading="lazy" decoding="async" src="/assets/svgs/instagram.svg" alt="instagram" width="11" height="11">
+                </a>
+            </div>
+        </div>
+        <!-- Links -->
+        <ul class="cs-nav">
+            <li class="cs-nav-li">
+                <span class="cs-header">Sitemap</span>
+            </li>
+            <li class="cs-nav-li">
+                <a class="cs-nav-link" href="/">Home</a>
+            </li>
+            <li class="cs-nav-li">
+                <a class="cs-nav-link" href="/about/">About</a>
+            </li>
+            <li class="cs-nav-li">
+                <a class="cs-nav-link" href="/reviews/">Reviews</a>
+            </li>
+            <li class="cs-nav-li">
+                <a class="cs-nav-link" href="/blog/">Blog</a>
+            </li>
+            <li class="cs-nav-li">
+                <a class="cs-nav-link" href="/contact/">Contact</a>
+            </li>
+        </ul>
+        <ul class="cs-nav">
+            <li class="cs-nav-li">
+                <span class="cs-header">Projects</span>
+            </li>
+            <li class="cs-nav-li">
+                <a class="cs-nav-link" href="/project-one/">Project One</a>
+            </li>
+            <li class="cs-nav-li">
+                <a class="cs-nav-link" href="/project-two/">Project Two</a>
+            </li>
+        </ul>
+        <!-- Contact Info -->
+        <ul class="cs-contact">
+            <li class="cs-nav-li">
+                <span class="cs-header">Contact</span>
+            </li>
+            <li class="cs-contact-li">
+                <a class="cs-contact-link cs-address" href="https://maps.app.goo.gl/TEdS5KoLC9ZcULuQ6" target="_blank" rel="noopener">
+                    First Address Line, <br>
+                    Second Address Line, <br>
+                    Denver, CO
+                    80206
+                </a>
+            </li>
+            <li class="cs-contact-li">
+                <a class="cs-contact-link" href="tel:555-779-4407">(555) 779-4407</a>
+            </li>
+            <li class="cs-contact-li">
+                <a class="cs-contact-link" href="mailto:help@codestitch.app">help@codestitch.app</a>
+            </li>
+        </ul>
+    </div>
+</footer>
+
+    </body>
+</html>

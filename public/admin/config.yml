@@ -1,0 +1,274 @@
+# Replace the "backend" object below with the snippet from DecapBridge. We need something here to get the CMS to work locally, but this alone won't work in production
+backend:
+    name: git-gateway
+
+# Enable editorial workflow - prevents immediate publish/rebuild
+publish_mode: editorial_workflow
+
+# Keep this to allow you to edit the cms locally
+local_backend: true
+
+# change url to a link to the image you want to use, no file paths, must be a URL
+logo_url: https://codestitch.app/frontend/images/logo.png
+
+# Image folders
+media_folder: "src/assets/images"
+public_folder: "/assets/images"
+
+# Decap CMS Collections
+collections:
+    # Site Settings - Global configuration
+    - name: "settings"
+      label: "Site Settings"
+      files:
+          - label: "Site Configuration"
+            name: "site"
+            file: "src/_data/client.json"
+            fields:
+                - { label: "Site Name", name: "name", widget: "string" }
+                - { label: "Email", name: "email", widget: "string" }
+                - { label: "Phone (for tel links)", name: "phoneForTel", widget: "string" }
+                - { label: "Phone (formatted)", name: "phoneFormatted", widget: "string" }
+                - label: "Address"
+                  name: "address"
+                  widget: "object"
+                  fields:
+                      - { label: "Line 1", name: "lineOne", widget: "string" }
+                      - { label: "Line 2", name: "lineTwo", widget: "string" }
+                      - { label: "City", name: "city", widget: "string" }
+                      - { label: "State", name: "state", widget: "string" }
+                      - { label: "Zip", name: "zip", widget: "string" }
+                      - { label: "Country", name: "country", widget: "string" }
+                      - { label: "Map Link", name: "mapLink", widget: "string" }
+                - label: "Social Media"
+                  name: "socials"
+                  widget: "object"
+                  fields:
+                      - { label: "Facebook", name: "facebook", widget: "string", required: false }
+                      - { label: "Instagram", name: "instagram", widget: "string", required: false }
+                - { label: "Domain", name: "domain", widget: "string", hint: "Include protocol (https://) with NO trailing slash" }
+                - label: "Logo Images"
+                  name: "logo"
+                  widget: "object"
+                  fields:
+                      - { label: "Primary Logo", name: "primary", widget: "image", hint: "Main logo for header", media_folder: "/src/assets/svgs", public_folder: "/assets/svgs", default: "/assets/svgs/fpcGoshen_combined.svg" }
+                      - { label: "Logo Icon", name: "icon", widget: "image", hint: "Icon-only version", media_folder: "/src/assets/svgs", public_folder: "/assets/svgs", required: false }
+                      - { label: "Logo Text", name: "text", widget: "image", hint: "Text-only version", media_folder: "/src/assets/svgs", public_folder: "/assets/svgs", required: false }
+                      - { label: "Logo Alt Text", name: "alt", widget: "string", default: "Company Logo" }
+                      - { label: "Logo Width", name: "width", widget: "number", default: 210 }
+                      - { label: "Logo Height", name: "height", widget: "number", default: 40 }
+    - name: "events"
+      label: "Events"
+      folder: "src/content/events"
+      create: true
+      slug: "{{slug}}"
+      fields:
+          - { label: "Event Title", name: "title", widget: "string" }
+          - { label: "Event Date", name: "date", widget: "datetime" }
+          - { label: "Event Location", name: "location", widget: "text" }
+          - { label: "Event Details", name: "details", widget: "markdown" }
+    - name: "staff"
+      label: "Staff"
+      folder: "src/content/staff"
+      create: true
+      slug: "{{name}}"
+      fields:
+          - { label: "Staff Name", name: "name", widget: "string" }
+          - { label: "Staff Title", name: "title", widget: "string" }
+          - { label: "Staff Photo", name: "photo", widget: "image" }
+          - { label: "Staff Since", name: "date", widget: "datetime" }
+          - { label: "Staff Biography", name: "description", widget: "markdown" }
+    - name: "communications"
+      label: "Communications"
+      folder: "src/content/communications"
+      create: true
+      slug: "{{subject}}"
+      fields:
+          - { label: "Subject", name: "subject", widget: "string" }
+          - { label: "Date", name: "date", widget: "datetime" }
+          - { label: "Body", name: "body", widget: "markdown" }
+    - name: "pages"
+      label: "Pages"
+      folder: "src/content/pages"
+      create: true
+      slug: "{{slug}}"
+      fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "URL Slug", name: "url", widget: "string" }
+          - { label: "Description", name: "description", widget: "string" }
+          - { label: "Show in Navigation", name: "showInNav", widget: "boolean", default: true, hint: "Toggle to show or hide this page in the navigation bar" }
+          - { label: "Navigation Order", name: "navOrder", widget: "number", default: 0, hint: "Lower numbers appear first in navigation (0, 1, 2, etc.)" }
+          - label: "Sections"
+            name: "sections"
+            widget: "list"
+            types:
+                - label: "Text Section"
+                  name: "text_section"
+                  widget: "object"
+                  fields:
+                      - label: "Background Type"
+                        name: "backgroundType"
+                        widget: "select"
+                        options: 
+                          - { label: "None (Default)", value: "none" }
+                          - { label: "Color Background", value: "color" }
+                          - { label: "Image on Content", value: "image-content" }
+                          - { label: "Image Behind White Box", value: "image-white-box" }
+                        default: "none"
+                        hint: "Choose how the background should appear"
+                      - label: "Background Image"
+                        name: "backgroundImage"
+                        widget: "image"
+                        required: false
+                        hint: "Used when background type is 'Image on Content' or 'Image Behind White Box'"
+                      - label: "Background Color"
+                        name: "backgroundColor"
+                        widget: "select"
+                        options: ["primary", "secondary"]
+                        default: "primary"
+                        required: false
+                        hint: "Used when background type is 'Color Background'"
+                      - label: "Content Blocks"
+                        name: "contentBlocks"
+                        widget: "list"
+                        types:
+                          - label: "Header"
+                            name: "header_block"
+                            widget: "object"
+                            fields:
+                                - { label: "Header Text", name: "text", widget: "string" }
+                                - { label: "Header Level", name: "level", widget: "select", options: ["h1", "h2", "h3", "h4", "h5", "h6"], default: "h2" }
+                                - { label: "Header Style", name: "style", widget: "select", options: ["Default", "highlight_last_word", "full_highlight"], default: "Default" }
+                                - { label: "Alignment", name: "alignment", widget: "select", options: ["left", "center", "right"], default: "left" }
+                                - { label: "Indentation", name: "indentation", widget: "select", options: ["none", "small", "medium", "large", "xlarge"], default: "none", hint: "Add left indentation to this header" }
+                          - label: "Text Block"
+                            name: "text_block"
+                            widget: "object"
+                            fields:
+                                - { label: "Text Content", name: "content", widget: "markdown" }
+                                - { label: "Alignment", name: "alignment", widget: "select", options: ["left", "center", "right"], default: "left" }
+                                - { label: "Indentation", name: "indentation", widget: "select", options: ["none", "small", "medium", "large", "xlarge"], default: "none", hint: "Add left indentation to this text block" }
+                          - label: "Line Break"
+                            name: "line_break"
+                            widget: "object"
+                            fields:
+                                - { label: "Spacing", name: "spacing", widget: "select", options: ["small", "medium", "large"], default: "medium", hint: "Visual spacing for the line break" }
+                          - label: "Button Group"
+                            name: "button_group"
+                            widget: "object"
+                            fields:
+                                - { label: "Alignment", name: "alignment", widget: "select", options: ["left", "center", "right"], default: "left" }
+                                - { label: "Indentation", name: "indentation", widget: "select", options: ["none", "small", "medium", "large", "xlarge"], default: "none", hint: "Add left indentation to this button group" }
+                                - label: "Buttons"
+                                  name: "buttons"
+                                  widget: "list"
+                                  fields:
+                                      - { label: "Button Text", name: "buttonText", widget: "string" }
+                                      - { label: "Button Link", name: "buttonLink", widget: "string" }
+                                      - { label: "Button Style", name: "buttonStyle", widget: "select", options: ["Solid", "Outline"], default: "Solid" }
+                                      - { label: "Button Color", name: "buttonColor", widget: "select", options: ["Primary", "Secondary"], default: "Primary" }
+                
+                - label: "Image/Text Side by Side"
+                  name: "image_text_section"
+                  widget: "object"
+                  fields:
+                      - { label: "Image", name: "image", widget: "image" }
+                      - { label: "Style Options", name: "styleOptions", widget: "select", options: ["Style_1", "Style_2"], default: "Style_1"}
+                      - { label: "Image Alt Text", name: "imageAlt", widget: "string" }
+                      - label: "Image Position"
+                        name: "imagePosition"
+                        widget: "select"
+                        options: ["left", "right"]
+                        default: "left"
+                      - label: "Content Blocks"
+                        name: "contentBlocks"
+                        widget: "list"
+                        types:
+                          - label: "Header"
+                            name: "header_block"
+                            widget: "object"
+                            fields:
+                                - { label: "Header Text", name: "text", widget: "string" }
+                                - { label: "Header Level", name: "level", widget: "select", options: ["h1", "h2", "h3", "h4", "h5", "h6"], default: "h2" }
+                                - { label: "Header Style", name: "style", widget: "select", options: ["Default", "highlight_last_word"], default: "Default" }
+                                - { label: "Alignment", name: "alignment", widget: "select", options: ["left", "center", "right"], default: "left" }
+                                - { label: "Indentation", name: "indentation", widget: "select", options: ["none", "small", "medium", "large", "xlarge"], default: "none", hint: "Add left indentation to this header" }
+                          - label: "Text Block"
+                            name: "text_block"
+                            widget: "object"
+                            fields:
+                                - { label: "Text Content", name: "content", widget: "markdown" }
+                                - { label: "Alignment", name: "alignment", widget: "select", options: ["left", "center", "right"], default: "left" }
+                                - { label: "Indentation", name: "indentation", widget: "select", options: ["none", "small", "medium", "large", "xlarge"], default: "none", hint: "Add left indentation to this text block" }
+                          - label: "Line Break"
+                            name: "line_break"
+                            widget: "object"
+                            fields:
+                                - { label: "Spacing", name: "spacing", widget: "select", options: ["small", "medium", "large"], default: "medium", hint: "Visual spacing for the line break" }
+                          - label: "Button Group"
+                            name: "button_group"
+                            widget: "object"
+                            fields:
+                                - { label: "Alignment", name: "alignment", widget: "select", options: ["left", "center", "right"], default: "left" }
+                                - { label: "Indentation", name: "indentation", widget: "select", options: ["none", "small", "medium", "large", "xlarge"], default: "none", hint: "Add left indentation to this button group" }
+                                - label: "Buttons"
+                                  name: "buttons"
+                                  widget: "list"
+                                  fields:
+                                      - { label: "Button Text", name: "buttonText", widget: "string" }
+                                      - { label: "Button Link", name: "buttonLink", widget: "string" }
+                                      - { label: "Button Style", name: "buttonStyle", widget: "select", options: ["Solid", "Outline"], default: "Solid" }
+                                      - { label: "Button Color", name: "buttonColor", widget: "select", options: ["Primary", "Secondary"], default: "Primary" }
+                - label: "Hero Section"
+                  name: "hero_section"
+                  widget: "object"
+                  fields:
+                      - { label: "Title", name: "title", widget: "text" }
+                      - { label: "titleColor", name: "titleColor", widget: "select", options: ["Black", "White", "Primary", "Secondary"], default: "Black" } 
+                      - { label: "Style Options", name: "styleOptions", widget: "select", options: ["Default", "Style_2"], default: "Default" }
+                      - { label: "Subtitle", name: "subtitle", widget: "text", required: false }
+                      - { label: "subtitleColor", name: "subtitleColor", widget: "select", options: ["Black", "White", "Primary", "Secondary"], default: "Black" } 
+                      - { label: "Background Image", name: "backgroundImage", widget: "image" }
+                      - { label: "Background Image Color", name: "backgroundImageColor", widget: "select", options: ["Color", "GrayScale"], default: "Color"}
+                      - label: "Buttons"
+                        name: "button"
+                        widget: "list"
+                        types:
+                          - label: "Button"
+                            name: "Button"
+                            widget: "object"
+                            fields:
+                                - { label: "Button Text", name: "buttonText", widget: "string" }
+                                - { label: "Button Link", name: "buttonLink", widget: "string" }
+                                - { label: "Button Style", name: "buttonStyle", widget: "select", options: ["Solid", "Outline"], default: "Solid" }
+                                - { label: "Button Color", name: "buttonColor", widget: "select", options: ["Primary", "Secondary"], default: "Primary" }
+                # ---------------------------------------------------------------------------- #
+                # Collection html file for front end is in /src/_includes/components/collections-section.html
+                # ---------------------------------------------------------------------------- #
+                - label: "Collections Section"
+                  name: "collections_section"
+                  widget: "object"
+                  fields:
+                      - { label: "Header", name: "header", widget: "string", default: "Upcoming Events" }
+                      - label: "Section Type"
+                        name: "sectionType"
+                        widget: "select"
+                        options:
+                          - { label: "Events (uses 'events' collection)", value: "events" }
+                          - { label: "Calendar View (uses 'events' collection with calendar)", value: "calendar_view" }
+                          - { label: "Staff (uses 'staff' collection)", value: "staff" }
+                          - { label: "Communication (uses 'communication' collection)", value: "communications" }
+                        default: "events"
+                        hint: "The collection name will be automatically derived from the section type"
+                
+                - label: "Event Contact Form"
+                  name: "event_contact_form"
+                  widget: "object"
+                  fields:
+                      - { label: "Heading", name: "heading", widget: "string", default: "Request an Event" }
+                      - { label: "Subheading", name: "subheading", widget: "text", required: false, default: "Fill out the form below and we'll get back to you as soon as possible." }
+                      - { label: "API Endpoint", name: "apiEndpoint", widget: "string", default: "/api/event-contact", hint: "The server endpoint where form submissions will be sent" }
+                      - { label: "CSS Class", name: "cssClass", widget: "string", required: false, hint: "Optional CSS class for custom styling" }
+                      - { label: "Section ID", name: "sectionId", widget: "string", required: false, hint: "Optional HTML ID for anchoring" }
+                        
+                      
