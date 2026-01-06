@@ -85,20 +85,21 @@ sections:
     header: Church Communications
     sectionType: communications
   - type: text_section
-    backgroundType: color
-    backgroundColor: primary
-    contentBlocks:
-      - type: text_block
-        alignment: center
-        indentation: none
-        content: |-
-          # **Next Steps**
-
-          **Ready to become a member of the First Presbyterian Church?**
-  - type: text_section
     backgroundType: none
     backgroundColor: primary
     contentBlocks:
+      - type: header_block
+        level: h2
+        style: full_highlight
+        alignment: center
+        indentation: none
+        text: Next Steps
+      - type: header_block
+        level: h2
+        style: Default
+        alignment: center
+        indentation: none
+        text: Ready to join the First Presbyterian Church?
       - type: text_block
         alignment: center
         indentation: none
