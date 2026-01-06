@@ -20,7 +20,7 @@ sections:
         level: h1
         style: highlight_last_word
         alignment: left
-        text: What we believe Stewardship
+        text: What we believe about Stewardship
         indentation: none
       - type: text_block
         alignment: left
@@ -67,7 +67,7 @@ sections:
         content: |-
           Our online tithe Service is powered by
 
-          ![](/assets/images/breeze.png)
+          ![](/assets/images/Breeze.png)
 
           for a safe and secure donation experience
 

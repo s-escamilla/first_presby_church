@@ -249,17 +249,26 @@ p{
 				max-width: 1200px;
 				margin: 0 auto;
 				// padding: 0 2rem;
+				:first-child{
+					border-left:none;
+				}
+				:last-child
+				{
+					border-right:none;
+				}
 			}
-			
 			.scroll-nav-item {
 				color: white;
 				text-decoration: none;
 				font-weight: 500;
-				font-size: 1.25rem;
-				padding: 0.5rem 1rem;
-				border-radius: 0.5rem;
+				font-size: 1.5rem;
+				padding: 0.6rem 1rem;
 				transition: all 0.3s ease;
 				position: relative;
+				border-left:1px solid white;
+
+				border-right:1px solid white;
+				
 				
 				&:hover {
 					color: white;
@@ -292,11 +301,25 @@ p{
 			h3{
 				font-size: var(--fontSizeH3);
 			}
+			&.Style_1{
+				.cs-container{
+					padding:0 clamp(1rem,10vw,12rem);
+				}
+				
+				@media (max-width: 768px) {
+					padding:0
+				}			
+			}
 			.cs-container{
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				
+				&.Style_1{
+					
+				}
+				&.Style_2{
+					
+				}
 		
 				.content-wrapper{
 					display: flex;
@@ -366,6 +389,8 @@ p{
 						}
 					}
 					.text-container{
+						padding-left:clamp(1rem,10vw,12rem);
+						
 						.content{
 							padding: var(--sectionPaddingMobile);
 						}
@@ -433,7 +458,7 @@ p{
 						&.image-right,
 						&.image-left {
 							.text-container {
-								
+								padding:0;
 							}
 							
 							.image-container {
@@ -772,19 +797,27 @@ p{
 			&.calendar_view {
 			background: white;	
 			}
-			.cs-container{
-				// width:70%;
-				background-color:white;
-				border-radius:2vw;
-				h2 {
+			h2 {
 					font-size: var(--fontSizeH2);
-					color: var(--headerColor);
+					color: white;
+					background-color:var(--primary);
 					padding-bottom: 1rem;
 					padding-top:1rem;
 					margin:0;
 				}
+			.cs-container{
+				// width:70%;
+				background-color:white;
+				border-radius:2vw;
+				margin:0 clamp(1rem,10vw,12rem);
+				
+				@media (max-width: 768px) {
+					margin:0;
+				}	
+				
 				
 				.collections-layout {
+					padding:1rem;
 					&.events{
 						display: flex;
 						gap: 1rem;
@@ -2608,7 +2641,12 @@ p{
 			
 // 		}
 
-// 		.cs-social-link {
+		.cs-social-link {
+			display: flex;
+			:first-child{
+				padding-right:0.5rem;
+			}
+		}
 // 			width: calc(24 / 8 * 1rem);
 // 			height: calc(24 / 8 * 1rem);
 // 			background-color: #4e4b66;

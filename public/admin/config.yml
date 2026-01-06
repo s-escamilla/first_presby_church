@@ -264,7 +264,7 @@ collections:
                   name: "collections_section"
                   widget: "object"
                   fields:
-                      - { label: "Header", name: "header", widget: "string", default: "Upcoming Events" }
+                      - { label: "Header", name: "header", widget: "string", default: "Events" }
                       - label: "Section Type"
                         name: "sectionType"
                         widget: "select"

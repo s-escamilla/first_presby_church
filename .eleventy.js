@@ -115,11 +115,11 @@ module.exports = function (eleventyConfig) {
 
     /*
      * 📝 Markdown Filter
-     * Converts markdown text to HTML
+     * Converts markdown text to HTML with path prefix support
      * Usage: {{ content | markdown | safe }}
      * Powered by markdown-it: https://github.com/markdown-it/markdown-it
      */
-    eleventyConfig.addFilter("markdown", filterMarkdown);
+    eleventyConfig.addFilter("markdown", filterMarkdown(eleventyConfig));
 
     /*
 
