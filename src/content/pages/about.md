@@ -35,7 +35,14 @@ sections:
       - type: text_block
         alignment: left
         indentation: large
-        content: Some test text
+        content: |-
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus
+
+
+
+          vehicula convallis. Ut eleifend sem fermentum est hendrerit bibendum.
+
+          Duis purus lacus, facilisis dapibus tempus sit amet, porta non nulla.
       - type: text_block
         alignment: left
         indentation: medium
@@ -43,7 +50,18 @@ sections:
       - type: text_block
         alignment: left
         indentation: large
-        content: Some more test text
+        content: |-
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus
+
+
+
+          vehicula convallis. Ut eleifend sem fermentum est hendrerit bibendum.
+
+          Duis purus lacus, facilisis dapibus tempus sit amet, porta non nulla.
+
+
+
+          Nunc elementum quam id nulla tempor efficitur.
     widgetBackgroundImage: /assets/images/fpcgoshen_img2_grayscal.jpg
     backgroundType: none
   - type: text_section
@@ -63,7 +81,7 @@ sections:
         alignment: left
         indentation: small
       - type: text_block
-        content: Some blieve
+        content: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus
         alignment: left
         indentation: medium
       - type: header_block
@@ -73,7 +91,18 @@ sections:
         alignment: left
         indentation: small
       - type: text_block
-        content: Some belief
+        content: |-
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus
+
+
+
+          vehicula convallis. Ut eleifend sem fermentum est hendrerit bibendum.
+
+          Duis purus lacus, facilisis dapibus tempus sit amet, porta non nulla.
+
+
+
+          Nunc elementum quam id nulla tempor effi
         alignment: left
         indentation: medium
     widgetBackgroundImage: /assets/images/FPC_Goshen_Church.jpg
