@@ -296,7 +296,12 @@ p{
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				
+				&.Style_1{
+					padding:0 clamp(1rem,10vw,12rem);
+				}
+				&.Style_2{
+					
+				}
 		
 				.content-wrapper{
 					display: flex;
@@ -366,6 +371,8 @@ p{
 						}
 					}
 					.text-container{
+						padding-left:clamp(1rem,10vw,12rem);
+						
 						.content{
 							padding: var(--sectionPaddingMobile);
 						}
@@ -433,7 +440,7 @@ p{
 						&.image-right,
 						&.image-left {
 							.text-container {
-								
+								padding:0;
 							}
 							
 							.image-container {
