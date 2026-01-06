@@ -64,15 +64,12 @@ sections:
         alignment: center
         indentation: none
       - type: text_block
-        content: >-
+        content: |-
           Our online tithe Service is powered by
 
-
-          ![](/assets/images/69091d01e553fb84a08d8ebe_breeze-is-now-tithely-p-500.png)
-
+          ![](/assets/images/breeze.png)
 
           for a safe and secure donation experience
-
 
           Click the link below to go to our donation page
         alignment: center
