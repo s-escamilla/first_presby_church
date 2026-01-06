@@ -143,5 +143,5 @@ sections:
           - buttonStyle: Solid
             buttonColor: Primary
             buttonText: Become a member
-            buttonLink: test
+            buttonLink: about
 ---
