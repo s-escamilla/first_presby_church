@@ -1,8 +1,8 @@
 {# Collections Section Component - Like a React Functional Component #}
 {% macro render(section, collections) %}
 <section class="collections-section {{section.sectionType}} cs-style">
-    <div class="cs-container">
         <h2>{{ section.header or "Collection Items" }}</h2>
+        <div class="cs-container">
         <div class="collections-layout {{ section.sectionType }}">
             {% if section.sectionType == "events" %}
                 <!-- Original Split View -->
