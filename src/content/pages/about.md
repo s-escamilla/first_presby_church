@@ -2,6 +2,7 @@
 title: About
 url: about
 description: About Page
+showInNav: false
 navOrder: 1
 sections:
   - type: hero_section
@@ -83,4 +84,34 @@ sections:
   - type: collections_section
     header: Church Communications
     sectionType: communications
+  - type: text_section
+    backgroundType: color
+    backgroundColor: primary
+    contentBlocks:
+      - type: text_block
+        alignment: center
+        indentation: none
+        content: |-
+          # **Next Steps**
+
+          **Ready to become a member of the First Presbyterian Church?**
+  - type: text_section
+    backgroundType: none
+    backgroundColor: primary
+    contentBlocks:
+      - type: text_block
+        alignment: center
+        indentation: none
+        content: |-
+          ###  **Cras finibus vehicula convallis.**
+
+          ### **Ut eleifend sem fermentum est hendrerit bibendum.**
+      - type: button_group
+        alignment: center
+        indentation: none
+        buttons:
+          - buttonStyle: Solid
+            buttonColor: Primary
+            buttonText: Become a member
+            buttonLink: test
 ---
