@@ -788,22 +788,24 @@ p{
 			&.calendar_view {
 			background: white;	
 			}
-			.cs-container{
-				// width:70%;
-				background-color:white;
-				border-radius:2vw;
-				padding:0 clamp(1rem,10vw,12rem);
-				
-				@media (max-width: 768px) {
-					padding:0;
-				}	
-				h2 {
+			h2 {
 					font-size: var(--fontSizeH2);
-					color: var(--headerColor);
+					color: white;
+					background-color:var(--primary);
 					padding-bottom: 1rem;
 					padding-top:1rem;
 					margin:0;
 				}
+			.cs-container{
+				// width:70%;
+				background-color:white;
+				border-radius:2vw;
+				margin:0 clamp(1rem,10vw,12rem);
+				
+				@media (max-width: 768px) {
+					margin:0;
+				}	
+				
 				
 				.collections-layout {
 					&.events{
