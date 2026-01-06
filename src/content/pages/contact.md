@@ -20,7 +20,7 @@ sections:
       - type: header_block
         level: h2
         style: Default
-        text: Church Operation Hours
+        text: Church Location
         alignment: center
         indentation: none
       - type: text_block
@@ -45,7 +45,7 @@ sections:
         style: Default
         alignment: center
         indentation: none
-        text: Schedule
+        text: Operational Hours
       - type: text_block
         content: |-
           **Monday**
