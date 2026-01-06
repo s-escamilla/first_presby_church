@@ -89,7 +89,7 @@ sections:
     backgroundColor: primary
     contentBlocks:
       - type: header_block
-        level: h2
+        level: h1
         style: full_highlight
         alignment: center
         indentation: none
