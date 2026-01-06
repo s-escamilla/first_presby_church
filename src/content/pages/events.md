@@ -11,7 +11,7 @@ sections:
     subtitleColor: Black
     backgroundImageColor: Color
     title: Events
-    backgroundImage: /assets/images/cabinets.jpg
+    backgroundImage: /assets/images/20251225_131911.jpg
   - type: collections_section
     header: Church Calendar
     sectionType: calendar_view
