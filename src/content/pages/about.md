@@ -2,7 +2,7 @@
 title: About
 url: about
 description: About Page
-showInNav: false
+showInNav: true
 navOrder: 1
 sections:
   - type: hero_section
