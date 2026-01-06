@@ -97,7 +97,7 @@ sections:
   - type: image_text_section
     styleOptions: Style_2
     imagePosition: right
-    image: /assets/images/landing.jpg
+    image: /assets/images/20251224_193339.jpg
     imageAlt: test
     contentBlocks:
       - type: header_block
