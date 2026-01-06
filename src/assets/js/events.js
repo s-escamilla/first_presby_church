@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const eventItems = document.querySelectorAll('.event-item');
     const eventDetails = document.querySelector('.event-details');
-    const eventModal = document.querySelector('.event-modal');
+    const eventModal = document.querySelector('.popup-modal');
     const eventModalOverlay = document.querySelector('.event-modal-overlay');
     const eventModalClose = document.querySelector('.event-modal-close');
     
