@@ -5,7 +5,7 @@
 <footer id="cs-footer-275">
     <div class="cs-container">
         <!-- Logo Group -->
-        <div class="cs-logo-group">
+        <div class="cs-group">
             <a aria-label="go back to home" class="cs-logo" href="{{ '/' | url }}">
                 <img class="cs-logo-img" aria-hidden="true" loading="lazy" decoding="async" src="{{ '/assets/images/pcusa_logo.png' | url }}" alt="logo" width="240" height="32">
             </a>
@@ -15,30 +15,30 @@
             
         </div>
         <!-- Links -->
-         <ul class="cs-nav">
-            <li class="cs-nav-li">
-                <span class="cs-header">Follow Us</span>
-            
-               <div class="cs-social">
+        <div class="cs-group">
+            <span class="cs-header">Site Directory</span>
+            <ul class="cs-nav">
+                {% for page in collections.pages | sort(attribute='data.navOrder') %}
+                
+                    <li class="cs-nav-li">
+                        <a class="cs-nav-link" href="{{ page.url | url }}">{{ page.data.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="cs-group">
+            <span class="cs-header">Follow Us</span>
+            <ul class="cs-nav">
                 <a class="cs-social-link" aria-label="visit facebook profile" href="{{ client.socials.facebook }}" target="_blank" rel="noopener">
                     <img class="cs-social-img" aria-hidden="true" loading="lazy" decoding="async" src="{{ '/assets/svgs/facebook.svg' | url }}" alt="facebook" width="6" height="11">
                 </a>
                 <a class="cs-social-link" aria-label="visit instagram profile" href="{{ client.socials.instagram }}" target="_blank" rel="noopener">
                     <img class="cs-social-img" aria-hidden="true" loading="lazy" decoding="async" src="{{ '/assets/svgs/instagram.svg' | url }}" alt="instagram" width="11" height="11">
                 </a>
-            </div>
-        </ul>
-        <ul class="cs-nav">
-            <li class="cs-nav-li">
-                <span class="cs-header">Site Directory</span>
-            </li>
-            {% for page in collections.pages | sort(attribute='data.navOrder') %}
-               
-                <li class="cs-nav-li">
-                    <a class="cs-nav-link" href="{{ page.url | url }}">{{ page.data.title }}</a>
-                </li>
-            {% endfor %}
-        </ul>
+                <!-- <div class="cs-social"> -->
+                <!-- </div> -->
+            </ul>
+        </div>
        
     </div>
 </footer>

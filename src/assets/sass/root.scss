@@ -255,7 +255,7 @@ p{
 				color: var(--headerColor);
 				text-decoration: none;
 				font-weight: 500;
-				font-size: 1rem;
+				font-size: 1.25rem;
 				padding: 0.5rem 1rem;
 				border-radius: 0.5rem;
 				transition: all 0.3s ease;
@@ -2098,7 +2098,7 @@ p{
 			height: 65vh;
 			margin: 0;
 			/* 28px - 40px */
-			padding: calc(48 / 16 * 1rem) clamp(1.75rem, 3vw, 2.5rem) calc(32 / 16 * 1rem) calc(70 / 16 * 1rem);
+			padding: 2rem 2rem;
 			display: flex;
 			flex-direction: column;
 			justify-content: flex-start;
@@ -2550,240 +2550,253 @@ p{
 <--- -------------------------- -*/
 
 /* Mobile - 360px */
-@media only screen and (min-width: 0px) {
-	#cs-footer-275 {
-		// padding: var(--sectionPadding);
+// @media only screen and (min-width: 0px) {
+// 	#cs-footer-275 {
+// 		// padding: var(--sectionPadding);
+// 		color: var(--footerTextColor);
+// 		background-color: var(--footerBacktgroundColor);
+
+// 		.cs-container {
+// 			width: 100%;
+// 			/* reset on tablet */
+// 			max-width: 90vw;
+// 			margin: auto;
+// 			justify-content: flex-start;
+// 			align-items: flex-start;
+// 			flex-wrap: wrap;
+// 			column-gap: calc(88 / 16 * 1rem);
+// 			row-gap: calc(32 / 16 * 1rem);
+// 		}
+
+// 		.cs-logo-group {
+// 			/* takes up all the space, lets the other ul's wrap below it */
+// 			width: 100%;
+// 			position: relative;
+// 		}
+
+// 		.cs-logo {
+// 			/* 210px - 240px */
+// 			width: clamp(13.125rem, 8vw, 15rem);
+// 			height: auto;
+// 			display: block;
+// 			/* 28px - 44px */
+// 			margin-bottom: clamp(1.75rem, 4.17vw, 2.75rem);
+// 		}
+
+// 		.cs-logo-img {
+// 			width: 100%;
+// 			height: auto;
+
+// 			&.dark {
+// 				display: none;
+// 			}
+// 		}
+
+// 		.cs-text {
+// 			color: var(--bodyTextColorWhite);
+// 			margin-bottom: calc(16 / 16 * 1rem);
+// 		}
+
+// 		.cs-social {
+// 			display: inline-flex;
+// 			flex-direction: row;
+// 			justify-content: flex-start;
+// 			gap: calc(12 / 16 * 1rem);
+// 			position: relative;
+// 			margin-top: 1rem;
+			
+			
+// 		}
+
+// 		.cs-social-link {
+// 			width: calc(24 / 8 * 1rem);
+// 			height: calc(24 / 8 * 1rem);
+// 			background-color: #4e4b66;
+// 			border-radius: 50%;
+// 			display: flex;
+// 			justify-content: center;
+// 			align-items: center;
+// 			position: relative;
+// 			z-index: 1;
+// 			transition: transform 0.3s, background-color 0.3s;
+
+// 			&:hover {
+// 				background-color: #1a1a1a;
+// 				transform: translateY(-0.1875rem);
+// 			}
+// 		}
+
+// 		.cs-social-img {
+// 			height: calc(13 / 8 * 1rem);
+// 			width: auto;
+// 			display: block;
+// 		}
+
+// 		/* Navigation Links */
+// 		.cs-nav {
+// 			padding: 0;
+// 			margin: 0;
+// 		}
+
+// 		.cs-nav-li {
+// 			list-style: none;
+// 			margin-bottom: calc(16 / 16 * 1rem);
+			
+// 			&:last-of-type {
+// 				margin-bottom: 0;
+// 			}
+// 		}
+
+// 		.cs-header {
+// 			font-size: calc(16 / 16 * 1rem);
+// 			line-height: 1.5em;
+// 			font-weight: 700;
+// 			color: var(--bodyTextColorWhite);
+// 			position: relative;
+
+// 			&:after {
+// 				content: "";
+// 				width: calc(32 / 16 * 1rem);
+// 				height: calc(4 / 16 * 1rem);
+// 				margin: calc(16 / 16 * 1rem) auto calc(24 / 16 * 1rem) 0;
+// 				background: var(--primary);
+// 				opacity: 1;
+// 				position: relative;
+// 				display: block;
+// 			}
+// 		}
+
+// 		.cs-nav-link {
+// 			font-size: calc(16 / 16 * 1rem);
+// 			text-decoration: none;
+// 			line-height: 1.5em;
+			
+// 			color: var(--bodyTextColorWhite);
+// 			position: relative;
+
+// 			&:before {
+// 				/* underline */
+// 				content: "";
+// 				width: 0%;
+// 				height: calc(2 / 16 * 1rem);
+// 				background: var(--bodyTextColorWhite);
+// 				opacity: 1;
+// 				position: absolute;
+// 				display: block;
+// 				bottom: calc(-2 / 16 * 1rem);
+// 				left: 0;
+// 				transition: width 0.3s;
+// 			}
+
+// 			&:hover {
+// 				&:before {
+// 					width: 100%;
+// 				}
+// 			}
+// 		}
+
+// 		/* Contact Links */
+// 		.cs-contact {
+// 			margin: 0;
+// 			padding: 0;
+// 			width: 35%;
+// 		}
+
+// 		.cs-contact-li {
+// 			list-style: none;
+// 			margin-bottom: calc(0 / 16 * 1rem);
+// 			&:last-of-type {
+// 				margin-bottom: 0;
+// 			}
+// 		}
+
+// 		.cs-contact-link {
+// 			font-size: calc(16 / 16 * 1rem);
+// 			text-decoration: none;
+// 			line-height: 1.5em;
+// 			text-align: left;
+// 			color: var(--bodyTextColorWhite);
+// 			display: inline-block;
+
+// 			&:hover {
+// 				text-decoration: underline;
+// 			}
+// 		}
+
+// 		.cs-address {
+// 			font-size: calc(16 / 16 * 1rem);
+// 			margin-bottom: calc(20 / 16 * 1rem);
+// 		}
+// 	}
+// }
+// /* Small Desktop - 1024px */
+// @media only screen and (min-width: 64rem) {
+// 	#cs-footer-275 {
+		
+// 		.cs-container {
+// 			/* pushes all flex children to the top */
+// 			display: grid;
+// 			grid-template-columns: 33% 33% 34%;
+// 			padding: clamp(6rem, 7vw, 12rem) calc(16 / 16 * 1rem);
+// 		}
+
+// 		.cs-logo-group {
+// 			/* pushes everything to the right of it as far as possible in a flexbox */
+// 			margin-right: auto;
+// 			width: auto;
+// 			max-width: calc(305 / 16 * 1rem);
+// 		}
+
+// 		.cs-text {
+// 			width: 100%;
+// 			color:white
+// 		}
+
+// 		.cs-contact {
+// 			width: auto;
+// 		}
+// 	}
+// }
+#cs-footer-275{
+	.cs-container{
 		color: var(--footerTextColor);
 		background-color: var(--footerBacktgroundColor);
-
-		.cs-container {
-			width: 100%;
-			/* reset on tablet */
-			max-width: calc(550 / 16 * 1rem);
-			margin: auto;
-			display: flex;
-			justify-content: flex-start;
-			align-items: flex-start;
-			flex-wrap: wrap;
-			column-gap: calc(88 / 16 * 1rem);
-			row-gap: calc(32 / 16 * 1rem);
-		}
-
-		.cs-logo-group {
-			/* takes up all the space, lets the other ul's wrap below it */
-			width: 100%;
-			position: relative;
-		}
-
-		.cs-logo {
-			/* 210px - 240px */
-			width: clamp(13.125rem, 8vw, 15rem);
-			height: auto;
-			display: block;
-			/* 28px - 44px */
-			margin-bottom: clamp(1.75rem, 4.17vw, 2.75rem);
-		}
-
-		.cs-logo-img {
-			width: 100%;
-			height: auto;
-
-			&.dark {
-				display: none;
-			}
-		}
-
-		.cs-text {
-			color: var(--bodyTextColorWhite);
-			margin-bottom: calc(16 / 16 * 1rem);
-		}
-
-		.cs-social {
-			display: inline-flex;
-			flex-direction: row;
-			justify-content: flex-start;
-			gap: calc(12 / 16 * 1rem);
-			position: relative;
-			margin-top: 1rem;
-			
-			@media only screen and (min-width: 768px) {
-				flex-direction: column;
-				position: absolute;
-				top: 0;
-				right: 0;
-				margin-top: 0;
-			}
-		}
-
-		.cs-social-link {
+		display:grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap:2rem;
+	}
+	img{
+		height:auto;
+		// max-width:25vw;
+		width: clamp(150px, 20vw, 300px);
+		&.cs-social-img{
 			width: calc(24 / 8 * 1rem);
 			height: calc(24 / 8 * 1rem);
-			background-color: #4e4b66;
-			border-radius: 50%;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			position: relative;
-			z-index: 1;
-			transition: transform 0.3s, background-color 0.3s;
-
-			&:hover {
-				background-color: #1a1a1a;
-				transform: translateY(-0.1875rem);
-			}
-		}
-
-		.cs-social-img {
-			height: calc(13 / 8 * 1rem);
-			width: auto;
 			display: block;
+
 		}
 
-		/* Navigation Links */
-		.cs-nav {
-			padding: 0;
-			margin: 0;
+	}
+	.cs-group{
+		padding:var(--sectionPaddingMobile);
+		font-size:1.25rem;
+
+		.cs-header{
+			font-size:1.5rem;
+			margin-bottom:1rem;
+			color:white;
+			border-bottom: 5px solid var(--primary);
+			margin-bottom:0.5rem;
 		}
-
-		.cs-nav-li {
-			list-style: none;
-			margin-bottom: calc(16 / 16 * 1rem);
-			
-			&:last-of-type {
-				margin-bottom: 0;
-			}
+		ul{
+			color:white;
+			list-style:none;
 		}
-
-		.cs-header {
-			font-size: calc(16 / 16 * 1rem);
-			line-height: 1.5em;
-			font-weight: 700;
-			color: var(--bodyTextColorWhite);
-			position: relative;
-
-			&:after {
-				content: "";
-				width: calc(32 / 16 * 1rem);
-				height: calc(4 / 16 * 1rem);
-				margin: calc(16 / 16 * 1rem) auto calc(24 / 16 * 1rem) 0;
-				background: var(--primary);
-				opacity: 1;
-				position: relative;
-				display: block;
-			}
-		}
-
-		.cs-nav-link {
-			font-size: calc(16 / 16 * 1rem);
-			text-decoration: none;
-			line-height: 1.5em;
-			
-			color: var(--bodyTextColorWhite);
-			position: relative;
-
-			&:before {
-				/* underline */
-				content: "";
-				width: 0%;
-				height: calc(2 / 16 * 1rem);
-				background: var(--bodyTextColorWhite);
-				opacity: 1;
-				position: absolute;
-				display: block;
-				bottom: calc(-2 / 16 * 1rem);
-				left: 0;
-				transition: width 0.3s;
-			}
-
-			&:hover {
-				&:before {
-					width: 100%;
-				}
-			}
-		}
-
-		/* Contact Links */
-		.cs-contact {
-			margin: 0;
-			padding: 0;
-			width: 35%;
-		}
-
-		.cs-contact-li {
-			list-style: none;
-			margin-bottom: calc(0 / 16 * 1rem);
-			&:last-of-type {
-				margin-bottom: 0;
-			}
-		}
-
-		.cs-contact-link {
-			font-size: calc(16 / 16 * 1rem);
-			text-decoration: none;
-			line-height: 1.5em;
-			text-align: left;
-			color: var(--bodyTextColorWhite);
-			display: inline-block;
-
-			&:hover {
-				text-decoration: underline;
-			}
-		}
-
-		.cs-address {
-			font-size: calc(16 / 16 * 1rem);
-			margin-bottom: calc(20 / 16 * 1rem);
+		li,.cs-social-img{
+			padding:0.5rem 0;
 		}
 	}
-}
 
-/* Tablet - 768px */
-@media only screen and (min-width: 48rem) {
-	#cs-footer-275 {
-		.cs-container {
-			max-width: calc(1280 / 16 * 1rem);
-			row-gap: 0;
-		}
-
-		.cs-contact {
-			flex-direction: row;
-			justify-content: space-between;
-			border-top: none;
-		}
-
-		.cs-contact-li {
-			margin: 0;
-		}
-	}
-}
-
-/* Small Desktop - 1024px */
-@media only screen and (min-width: 64rem) {
-	#cs-footer-275 {
-		
-		.cs-container {
-			/* pushes all flex children to the top */
-			display: grid;
-			grid-template-columns: 33% 33% 34%;
-			padding: clamp(6rem, 7vw, 12rem) calc(16 / 16 * 1rem);
-		}
-
-		.cs-logo-group {
-			/* pushes everything to the right of it as far as possible in a flexbox */
-			margin-right: auto;
-			width: auto;
-			max-width: calc(305 / 16 * 1rem);
-		}
-
-		.cs-text {
-			width: 100%;
-			color:white
-		}
-
-		.cs-contact {
-			width: auto;
-		}
-	}
 }
 
 
