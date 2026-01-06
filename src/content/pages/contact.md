@@ -12,7 +12,7 @@ sections:
     backgroundImageColor: Color
     title: Contact
     subtitle: ""
-    backgroundImage: /assets/images/cabinets.jpg
+    backgroundImage: /assets/images/20251225_131905.jpg
   - type: text_section
     styleOptions: Default
     widgetColorScheme: primary
@@ -38,7 +38,7 @@ sections:
   - type: image_text_section
     styleOptions: Style_1
     imagePosition: right
-    image: /assets/images/screenshot-from-2026-01-03-00-10-37.png
+    image: /assets/images/20251224_193339.jpg
     contentBlocks:
       - type: header_block
         level: h2
