@@ -11,7 +11,7 @@ sections:
     subtitleColor: Black
     backgroundImageColor: Color
     title: Events
-    backgroundImage: /assets/images/cabinets.jpg
+    backgroundImage: /assets/images/20251225_131911.jpg
   - type: collections_section
     header: Church Calendar
     sectionType: calendar_view
@@ -26,12 +26,64 @@ sections:
       - type: header_block
         level: h1
         style: Default
-        text: Weddings/Funerals
+        text: Weddings
         alignment: center
         indentation: none
       - type: text_block
-        alignment: left
+        alignment: center
         indentation: none
-        content: some test information
+        content: |-
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+          Sed tincidunt justo quis rutrum tempor.
+
+
+
+
+
+          Sed eget libero diam.Vestibulum dapibus, enim nec
+
+
+
+          semper volutpat, tortor erat laoreet lorem,
+
+          euismod pellentesque lorem dui non odio. Nunc
+
+          vestibulum euismod cursus. Donec eget ultrices nisl.
+
+          Donec ut turpis eu diam dictum scelerisque
     backgroundType: none
+  - type: text_section
+    backgroundType: none
+    backgroundColor: primary
+    contentBlocks:
+      - type: header_block
+        level: h1
+        style: Default
+        alignment: center
+        indentation: none
+        text: Funerals
+      - type: text_block
+        alignment: center
+        indentation: none
+        content: |-
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+          Sed tincidunt justo quis rutrum tempor.
+
+
+
+
+
+          Sed eget libero diam.Vestibulum dapibus, enim nec
+
+
+
+          semper volutpat, tortor erat laoreet lorem,
+
+          euismod pellentesque lorem dui non odio. Nunc
+
+          vestibulum euismod cursus. Donec eget ultrices nisl.
+
+          Donec ut turpis eu diam dictum scelerisque
 ---
