@@ -292,12 +292,21 @@ p{
 			h3{
 				font-size: var(--fontSizeH3);
 			}
+			&.Style_1{
+				.cs-container{
+					padding:0 clamp(1rem,10vw,12rem);
+				}
+				
+				@media (max-width: 768px) {
+					padding:0
+				}			
+			}
 			.cs-container{
 				display: flex;
 				justify-content: center;
 				align-items: center;
 				&.Style_1{
-					padding:0 clamp(1rem,10vw,12rem);
+					
 				}
 				&.Style_2{
 					
@@ -783,6 +792,11 @@ p{
 				// width:70%;
 				background-color:white;
 				border-radius:2vw;
+				padding:0 clamp(1rem,10vw,12rem);
+				
+				@media (max-width: 768px) {
+					padding:0;
+				}	
 				h2 {
 					font-size: var(--fontSizeH2);
 					color: var(--headerColor);
