@@ -14,12 +14,12 @@ sections:
         buttonStyle: Solid
         buttonColor: Secondary
         buttonText: Plan Your Visit
-        buttonLink: f
+        buttonLink: about
       - type: Button
         buttonStyle: Solid
         buttonColor: Primary
         buttonText: Sunday Service Livestream
-        buttonLink: faes
+        buttonLink: home
     backgroundImageColor: Color
     subtitle: First Presbyterian Church
     title: Welcome to
@@ -97,7 +97,7 @@ sections:
   - type: image_text_section
     styleOptions: Style_2
     imagePosition: right
-    image: /assets/images/20251224_193339.jpg
+    image: /assets/images/screenshot-from-2026-01-03-00-10-37.png
     imageAlt: test
     contentBlocks:
       - type: header_block
@@ -132,11 +132,11 @@ sections:
           - buttonStyle: Solid
             buttonColor: Primary
             buttonText: More ways to get in touch
-            buttonLink: test
+            buttonLink: contact
           - buttonStyle: Solid
             buttonColor: Primary
             buttonText: Our FAQ Page
-            buttonLink: test
+            buttonLink: about
         alignment: left
         indentation: none
 ---
