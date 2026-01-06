@@ -36,50 +36,61 @@ sections:
         alignment: left
         indentation: none
       - type: text_block
-        content: some randome text
-        alignment: center
+        alignment: left
         indentation: none
-      - type: line_break
-        spacing: small
-      - type: button_group
-        buttons:
-          - buttonStyle: Solid
-            buttonColor: Primary
-            buttonText: some button
-            buttonLink: test
-        alignment: center
-        indentation: none
+        content: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+          veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+          ea commodo consequat. Duis aute irure dolor in reprehenderit in
+          voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+          sint occaecat cupidatat non proident, sunt in culpa qui officia
+          deserunt mollit anim id est laborum.
     imageAlt: test
   - type: text_section
     backgroundType: image-content
     backgroundColor: primary
-    backgroundImage: /assets/images/fpcgoshen_img2_grayscal.jpg
+    backgroundImage: /assets/images/20251225_134911.jpg
     contentBlocks:
       - type: header_block
         level: h2
         style: highlight_last_word
         alignment: left
         indentation: none
-        text: reaching out
+        text: Reaching Out
       - type: text_block
         alignment: left
         indentation: none
-        content: Tesresrse
+        content: To share God's love with all people
   - type: text_section
     backgroundType: image-content
     backgroundColor: primary
-    backgroundImage: /assets/images/fpcgoshen_img2_grayscal.jpg
+    backgroundImage: /assets/images/20251224_201017.jpg
     contentBlocks:
       - type: header_block
         level: h2
         style: highlight_last_word
         alignment: left
         indentation: none
-        text: Reaching IN
+        text: Reaching Up
       - type: text_block
-        content: testse
+        content: To worship God
         alignment: left
         indentation: none
+  - type: text_section
+    backgroundType: image-content
+    backgroundColor: primary
+    contentBlocks:
+      - type: header_block
+        level: h2
+        style: highlight_last_word
+        alignment: left
+        indentation: none
+        text: Reaching In
+      - type: text_block
+        alignment: left
+        indentation: none
+        content: to seek fulfillment and sharing in Jesus Christ
+    backgroundImage: /assets/images/20251225_105243.jpg
   - type: collections_section
     header: Upcoming Events
     sectionType: events
