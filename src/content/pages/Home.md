@@ -22,7 +22,7 @@ sections:
         buttonLink: home
     backgroundImageColor: Color
     subtitle: First Presbyterian Church
-    title: Welcome to
+    title: Welcome toy8h87hy7h78yh87h7
     type: hero_section
   - type: image_text_section
     styleOptions: Style_1
@@ -124,7 +124,7 @@ sections:
         alignment: left
         indentation: none
       - type: text_block
-        content: "**Email**: fpcgoshen46528@gmail.com"
+        content: "**Email**: fpcgoshenuyhyuihhiuhui46528@gmail.com"
         alignment: left
         indentation: none
       - type: button_group
