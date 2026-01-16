@@ -1,1 +1,147 @@
-(()=>{var v=(r,m,a)=>new Promise((c,u)=>{var e=n=>{try{s(a.next(n))}catch(o){u(o)}},t=n=>{try{s(a.throw(n))}catch(o){u(o)}},s=n=>n.done?c(n.value):Promise.resolve(n.value).then(e,t);s((a=a.apply(r,m)).next())});document.addEventListener("DOMContentLoaded",function(){let r=document.getElementById("eventContactForm");if(!r)return;let m=document.getElementById("phone");m&&m.addEventListener("input",function(e){let t=e.target.value.replace(/\D/g,"");t.length>0&&(t.length<=3?t=`(${t}`:t.length<=6?t=`(${t.slice(0,3)}) ${t.slice(3)}`:t=`(${t.slice(0,3)}) ${t.slice(3,6)}-${t.slice(6,10)}`),e.target.value=t});let a=document.getElementById("eventDate");if(a){let e=new Date().toISOString().split("T")[0];a.setAttribute("min",e)}function c(e){let t=document.getElementById(`${e.id}Error`),s=!0,n="";if(t&&(t.textContent=""),e.classList.remove("invalid"),e.hasAttribute("required")&&!e.value.trim()&&(s=!1,n="This field is required"),e.type==="email"&&e.value.trim()&&(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.value)||(s=!1,n="Please enter a valid email address")),e.id==="phone"&&e.value.trim()&&e.value.replace(/\D/g,"").length!==10&&(s=!1,n="Please enter a valid 10-digit phone number"),e.type==="date"&&e.value){let o=new Date(e.value),l=new Date;l.setHours(0,0,0,0),o<l&&(s=!1,n="Event date must be in the future")}return!s&&t&&(t.textContent=n,e.classList.add("invalid")),s}let u=r.querySelectorAll("input, select, textarea");u.forEach(e=>{e.addEventListener("blur",function(){c(this)}),e.addEventListener("input",function(){this.classList.contains("invalid")&&c(this)})}),r.addEventListener("submit",function(e){return v(this,null,function*(){e.preventDefault();let t=!0;if(u.forEach(i=>{c(i)||(t=!1)}),!t){let i=r.querySelector(".invalid");i&&(i.scrollIntoView({behavior:"smooth",block:"center"}),i.focus());return}let s=r.querySelector(".submit-btn"),n=s.querySelector(".btn-text"),o=s.querySelector(".btn-loader"),l=document.getElementById("successMessage"),y=document.getElementById("errorMessage");s.disabled=!0,n.style.display="none",o.style.display="inline-flex",l.style.display="none",y.style.display="none";let p={name:document.getElementById("name").value.trim(),phone:document.getElementById("phone").value.trim(),email:document.getElementById("email").value.trim(),eventType:document.getElementById("eventType").value,eventDate:document.getElementById("eventDate").value,eventDescription:document.getElementById("eventDescription").value.trim(),submittedAt:new Date().toISOString()};try{let i=r.dataset.apiEndpoint||"/api/event-contact",d=yield fetch(i,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(p)});if(!d.ok)throw new Error(`HTTP error! status: ${d.status}`);let g=yield d.json();l.style.display="flex",r.reset(),l.scrollIntoView({behavior:"smooth",block:"center"}),setTimeout(()=>{l.style.display="none"},1e4)}catch(i){console.error("Form submission error:",i);let d=document.getElementById("errorMessageText");d.textContent="Sorry, there was an error submitting your request. Please try again or contact us directly.",y.style.display="flex",y.scrollIntoView({behavior:"smooth",block:"center"})}finally{s.disabled=!1,n.style.display="inline",o.style.display="none"}})})});})();
+(() => {
+  // src/assets/js/event-contact-form.js
+  document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById("eventContactForm");
+    if (!form) return;
+    const phoneInput = document.getElementById("phone");
+    if (phoneInput) {
+      phoneInput.addEventListener("input", function(e) {
+        let value = e.target.value.replace(/\D/g, "");
+        if (value.length > 0) {
+          if (value.length <= 3) {
+            value = `(${value}`;
+          } else if (value.length <= 6) {
+            value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
+          } else {
+            value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
+          }
+        }
+        e.target.value = value;
+      });
+    }
+    const eventDateInput = document.getElementById("eventDate");
+    if (eventDateInput) {
+      const today = (/* @__PURE__ */ new Date()).toISOString().split("T")[0];
+      eventDateInput.setAttribute("min", today);
+    }
+    function validateField(field) {
+      const errorElement = document.getElementById(`${field.id}Error`);
+      let isValid = true;
+      let errorMessage = "";
+      if (errorElement) {
+        errorElement.textContent = "";
+      }
+      field.classList.remove("invalid");
+      if (field.hasAttribute("required") && !field.value.trim()) {
+        isValid = false;
+        errorMessage = "This field is required";
+      }
+      if (field.type === "email" && field.value.trim()) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(field.value)) {
+          isValid = false;
+          errorMessage = "Please enter a valid email address";
+        }
+      }
+      if (field.id === "phone" && field.value.trim()) {
+        const phoneDigits = field.value.replace(/\D/g, "");
+        if (phoneDigits.length !== 10) {
+          isValid = false;
+          errorMessage = "Please enter a valid 10-digit phone number";
+        }
+      }
+      if (field.type === "date" && field.value) {
+        const selectedDate = new Date(field.value);
+        const today = /* @__PURE__ */ new Date();
+        today.setHours(0, 0, 0, 0);
+        if (selectedDate < today) {
+          isValid = false;
+          errorMessage = "Event date must be in the future";
+        }
+      }
+      if (!isValid && errorElement) {
+        errorElement.textContent = errorMessage;
+        field.classList.add("invalid");
+      }
+      return isValid;
+    }
+    const formFields = form.querySelectorAll("input, select, textarea");
+    formFields.forEach((field) => {
+      field.addEventListener("blur", function() {
+        validateField(this);
+      });
+      field.addEventListener("input", function() {
+        if (this.classList.contains("invalid")) {
+          validateField(this);
+        }
+      });
+    });
+    form.addEventListener("submit", async function(e) {
+      e.preventDefault();
+      let isFormValid = true;
+      formFields.forEach((field) => {
+        if (!validateField(field)) {
+          isFormValid = false;
+        }
+      });
+      if (!isFormValid) {
+        const firstError = form.querySelector(".invalid");
+        if (firstError) {
+          firstError.scrollIntoView({ behavior: "smooth", block: "center" });
+          firstError.focus();
+        }
+        return;
+      }
+      const submitBtn = form.querySelector(".submit-btn");
+      const btnText = submitBtn.querySelector(".btn-text");
+      const btnLoader = submitBtn.querySelector(".btn-loader");
+      const successMessage = document.getElementById("successMessage");
+      const errorMessage = document.getElementById("errorMessage");
+      submitBtn.disabled = true;
+      btnText.style.display = "none";
+      btnLoader.style.display = "inline-flex";
+      successMessage.style.display = "none";
+      errorMessage.style.display = "none";
+      const formData = {
+        name: document.getElementById("name").value.trim(),
+        phone: document.getElementById("phone").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        eventType: document.getElementById("eventType").value,
+        eventDate: document.getElementById("eventDate").value,
+        eventDescription: document.getElementById("eventDescription").value.trim(),
+        submittedAt: (/* @__PURE__ */ new Date()).toISOString()
+      };
+      try {
+        const apiEndpoint = form.dataset.apiEndpoint || "/api/event-contact";
+        const response = await fetch(apiEndpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(formData)
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const result = await response.json();
+        successMessage.style.display = "flex";
+        form.reset();
+        successMessage.scrollIntoView({ behavior: "smooth", block: "center" });
+        setTimeout(() => {
+          successMessage.style.display = "none";
+        }, 1e4);
+      } catch (error) {
+        console.error("Form submission error:", error);
+        const errorMessageText = document.getElementById("errorMessageText");
+        errorMessageText.textContent = "Sorry, there was an error submitting your request. Please try again or contact us directly.";
+        errorMessage.style.display = "flex";
+        errorMessage.scrollIntoView({ behavior: "smooth", block: "center" });
+      } finally {
+        submitBtn.disabled = false;
+        btnText.style.display = "inline";
+        btnLoader.style.display = "none";
+      }
+    });
+  });
+})();
+//# sourceMappingURL=event-contact-form.js.map

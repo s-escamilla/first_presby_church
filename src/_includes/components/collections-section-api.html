@@ -1,0 +1,111 @@
+{# Collections Section Component - API-Driven Version #}
+{# This renders empty containers that will be populated by collections-api.js #}
+{% macro render(section, collections) %}
+<section class="collections-section {{section.sectionType}} cs-style" data-api-collection="{{section.sectionType}}">
+    <h2>{{ section.header or "Collection Items" }}</h2>
+    <div class="cs-container">
+        <div class="collections-layout {{ section.sectionType }}">
+            {% if section.sectionType == "events" %}
+                <!-- Will be populated by API -->
+                <div class="loading-state">
+                    <p>Loading events...</p>
+                </div>
+                
+            {% elseif section.sectionType == "calendar_view" %}
+                <!-- View Toggle Buttons -->
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="calendar">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"/>
+                        </svg>
+                        Calendar View
+                    </button>
+                    <button class="view-btn" data-view="list">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"/>
+                        </svg>
+                        List View
+                    </button>
+                </div>
+
+                <!-- Calendar View -->
+                <div class="events-calendar-view active-view">
+                    <div class="calendar-header">
+                        <button class="calendar-nav prev-month">‹</button>
+                        <h3 class="calendar-month-year"></h3>
+                        <button class="calendar-nav next-month">›</button>
+                    </div>
+                    <div class="calendar-grid">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- List View -->
+                <div class="events-list-view">
+                    <div class="event-cards-container">
+                        <div class="loading-state">Loading events...</div>
+                    </div>
+                </div>
+                
+                <!-- Hidden data for calendar -->
+                <div class="events-data" style="display: none;">
+                    <!-- Will be populated by API -->
+                </div>
+
+                <!-- Calendar Modal -->
+                <div class="popup-modal" id="calendarModal">
+                    <div class="calendar-modal-overlay modal-overlay"></div>
+                    <div class="popup-modal-content">
+                        <button class="calendar-modal-close modal-close">&times;</button>
+                        <div class="calendar-modal-body"></div>
+                    </div>
+                </div>
+            
+            {% elseif section.sectionType == "staff" %}
+                {# Staff still uses Nunjucks data - or you can make it API-driven too #}
+                <div class="staff-list">
+                    {% for item in collections.staff %}
+                        <div class="staff-card">
+                            <div class="card-header">
+                                <h4 class="staff-name">{{ item.data.name }}</h4>
+                                <h5 class="staff-title">{{ item.data.title }}</h5>
+                            </div>
+                            <img src="{{ item.data.photo | url }}" alt="{{ item.data.name }}" class="staff-photo">
+                            <button class="read-more-btn" data-staff-index="{{ loop.index0 }}">Read More</button>
+                            
+                            <div class="staff-modal-data" style="display: none;">
+                                <div class="staff-modal-name">{{ item.data.name }}</div>
+                                <div class="staff-modal-title">{{ item.data.title }}</div>
+                                <div class="staff-modal-photo">{{ item.data.photo }}</div>
+                                <div class="staff-modal-date">{{ item.data.date | postDate }}</div>
+                                <div class="staff-modal-bio">{{ item.data.description | markdown | safe }}</div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="popup-modal" id="staffModal">
+                    <div class="staff-modal-overlay modal-overlay"></div>
+                    <div class="popup-modal-content">
+                        <button class="staff-modal-close modal-close">&times;</button>
+                        <div class="staff-modal-body">
+                            <img src="" alt="" class="modal-photo">
+                            <h3 class="modal-name"></h3>
+                            <h4 class="modal-title"></h4>
+                            <p class="modal-date"></p>
+                            <div class="modal-bio"></div>
+                        </div>
+                    </div>
+                </div>
+
+            {% elseif section.sectionType == "communications" %}
+                <!-- Will be populated by API -->
+                <div class="loading-state">
+                    <p>Loading communications...</p>
+                </div>
+
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endmacro %}
