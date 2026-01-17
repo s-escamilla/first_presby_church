@@ -149,13 +149,17 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             // Get API endpoint from data attribute or use default
             const apiEndpoint = form.dataset.apiEndpoint || '/api/database/index.php';
-
+            
             const response = await fetch(apiEndpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify({
+                    functionname: 'create',
+                    collection: 'eventRequests',
+                    arguments: { data: formData }
+                })
             });
 
             if (!response.ok) {
