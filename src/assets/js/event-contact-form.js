@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         try {
             // Get API endpoint from data attribute or use default
-            const apiEndpoint = form.dataset.apiEndpoint || '/api/event-contact';
+            const apiEndpoint = form.dataset.apiEndpoint || '/api/dashboard/index.php';
 
             const response = await fetch(apiEndpoint, {
                 method: 'POST',
