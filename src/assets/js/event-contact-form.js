@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 body: JSON.stringify({
                     functionname: 'create',
                     collection: 'eventRequests',
-                    arguments: { data: formData }
+                    arguments:formData 
                 })
             });
 
