@@ -1,131 +1,34 @@
-(() => {
-  // src/assets/js/collections-api.js
-  var CollectionsAPI = class {
-    constructor(apiBaseUrl) {
-      this.apiBaseUrl = apiBaseUrl || "/api/database";
-      this.cache = {
-        events: null,
-        communications: null,
-        staff: null
-      };
-    }
-    // Generic API fetch method
-    async fetchCollection(collectionName) {
-      if (this.cache[collectionName]) {
-        return this.cache[collectionName];
-      }
-      try {
-        const response = await fetch(`${this.apiBaseUrl}/index.php`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            functionname: "get",
-            collection: collectionName,
-            arguments: {}
-          })
-        });
-        const result = await response.json();
-        if (result.success) {
-          this.cache[collectionName] = result.result;
-          return result.result;
-        } else {
-          throw new Error(result.error || "Failed to fetch collection");
-        }
-      } catch (error) {
-        console.error(`Error fetching ${collectionName}:`, error);
-        throw error;
-      }
-    }
-    // Get events
-    async getEvents() {
-      return this.fetchCollection("events");
-    }
-    // Get communications  
-    async getCommunications() {
-      return this.fetchCollection("communications");
-    }
-    // Get staff (if using API for staff too)
-    async getStaff() {
-      return this.fetchCollection("staff");
-    }
-    // Helper: Format date
-    formatDate(dateString) {
-      const date = new Date(dateString);
-      return date.toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric"
-      });
-    }
-    // Helper: Format datetime
-    formatDateTime(dateString) {
-      const date = new Date(dateString);
-      return date.toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-        hour: "numeric",
-        minute: "2-digit",
-        hour12: true
-      });
-    }
-    // Helper: Parse markdown-style text (basic)
-    parseMarkdown(text) {
-      if (!text) return "";
-      return text.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\*(.+?)\*/g, "<em>$1</em>").replace(/\n/g, "<br>");
-    }
-    // ========== RENDER EVENTS ==========
-    async renderEvents(containerSelector = ".collections-section.events") {
-      const container = document.querySelector(containerSelector);
-      if (!container) return;
-      const eventsContainer = container.querySelector(".collections-layout.events");
-      if (eventsContainer) {
-        eventsContainer.innerHTML = '<div class="loading">Loading events...</div>';
-      }
-      try {
-        const events = await this.getEvents();
-        if (!events || events.length === 0) {
-          eventsContainer.innerHTML = '<div class="no-data">No events available</div>';
-          return;
-        }
-        events.sort((a, b) => new Date(a.date) - new Date(b.date));
-        const firstEvent = events[0];
-        const eventDetailsHTML = `
+(()=>{var r=(m,o,n)=>new Promise((t,a)=>{var s=c=>{try{d(n.next(c))}catch(e){a(e)}},v=c=>{try{d(n.throw(c))}catch(e){a(e)}},d=c=>c.done?t(c.value):Promise.resolve(c.value).then(s,v);d((n=n.apply(m,o)).next())});var u=class{constructor(o){this.apiBaseUrl=o||"/api/database",this.cache={events:null,communications:null,staff:null}}fetchCollection(o){return r(this,null,function*(){if(this.cache[o])return this.cache[o];try{let t=yield(yield fetch(`${this.apiBaseUrl}/index.php`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({functionname:"get",collection:o,arguments:{}})})).json();if(t.success)return this.cache[o]=t.result,t.result;throw new Error(t.error||"Failed to fetch collection")}catch(n){throw console.error(`Error fetching ${o}:`,n),n}})}getEvents(){return r(this,null,function*(){return this.fetchCollection("events")})}getCommunications(){return r(this,null,function*(){return this.fetchCollection("communications")})}getStaff(){return r(this,null,function*(){return this.fetchCollection("staff")})}formatDate(o){return new Date(o).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"})}formatDateTime(o){return new Date(o).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric",hour:"numeric",minute:"2-digit",hour12:!0})}parseMarkdown(o){return o?o.replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>").replace(/\*(.+?)\*/g,"<em>$1</em>").replace(/\n/g,"<br>"):""}renderEvents(o=".collections-section.events"){return r(this,null,function*(){let n=document.querySelector(o);if(!n)return;let t=n.querySelector(".collections-layout.events");t&&(t.innerHTML='<div class="loading">Loading events...</div>');try{let a=yield this.getEvents();if(!a||a.length===0){t.innerHTML='<div class="no-data">No events available</div>';return}a.sort((i,l)=>new Date(i.date)-new Date(l.date));let s=a[0],v=`
                 <div class="event-details">
                     <div class="event-details-content" data-event-id="0">
-                        <h3 class="event-title">${firstEvent.title}</h3>
-                        <p class="event-date">${this.formatDateTime(firstEvent.date)}</p>
+                        <h3 class="event-title">${s.title}</h3>
+                        <p class="event-date">${this.formatDateTime(s.date)}</p>
                         <div class="event-location">
-                            <p>${firstEvent.location}</p>
+                            <p>${s.location}</p>
                         </div>
-                        ${firstEvent.details ? `
+                        ${s.details?`
                             <div class="event-full-details">
-                                ${this.parseMarkdown(firstEvent.details)}
+                                ${this.parseMarkdown(s.details)}
                             </div>
-                        ` : ""}
+                        `:""}
                     </div>
                 </div>
-            `;
-        const eventListHTML = events.map((event, index) => `
-                <div class="event-item ${index === 0 ? "active" : ""}" 
-                     data-event-index="${index}" 
-                     data-event-date="${event.date}">
-                    <h4 class="event-item-title">${event.title}</h4>
-                    <p class="event-item-date">${this.formatDateTime(event.date)}</p>
-                    <div class="event-item-data" style="display: none;">
-                        <span class="event-location">${event.location}</span>
-                        <span class="event-details">${event.details || ""}</span>
-                    </div>
-                </div>
-            `).join("");
-        const eventListContainerHTML = `
+            `,c=`
                 <div class="event-list">
-                    ${eventListHTML}
+                    ${a.map((i,l)=>`
+                <div class="event-item ${l===0?"active":""}" 
+                     data-event-index="${l}" 
+                     data-event-date="${i.date}">
+                    <h4 class="event-item-title">${i.title}</h4>
+                    <p class="event-item-date">${this.formatDateTime(i.date)}</p>
+                    <div class="event-item-data" style="display: none;">
+                        <span class="event-location">${i.location}</span>
+                        <span class="event-details">${i.details||""}</span>
+                    </div>
                 </div>
-            `;
-        const modalHTML = `
+            `).join("")}
+                </div>
+            `,e=`
                 <div class="popup-modal" id="eventModal">
                     <div class="event-modal-overlay modal-overlay"></div>
                     <div class="popup-modal-content">
@@ -138,130 +41,46 @@
                         </div>
                     </div>
                 </div>
-            `;
-        eventsContainer.innerHTML = eventDetailsHTML + eventListContainerHTML + modalHTML;
-      } catch (error) {
-        eventsContainer.innerHTML = `<div class="error">Error loading events: ${error.message}</div>`;
-      }
-    }
-    // ========== RENDER CALENDAR VIEW ==========
-    async renderCalendarView(containerSelector = ".collections-section.calendar_view") {
-      const container = document.querySelector(containerSelector);
-      if (!container) return;
-      try {
-        const events = await this.getEvents();
-        if (!events || events.length === 0) {
-          const dataContainer2 = container.querySelector(".events-data");
-          if (dataContainer2) {
-            dataContainer2.innerHTML = '<div class="no-data">No events available</div>';
-          }
-          const listContainer2 = container.querySelector(".event-cards-container");
-          if (listContainer2) {
-            listContainer2.innerHTML = '<div class="no-data">No events available</div>';
-          }
-          return;
-        }
-        events.sort((a, b) => new Date(a.date) - new Date(b.date));
-        window.calendarEventsData = events;
-        const eventsDataHTML = events.map((event) => `
+            `;t.innerHTML=v+c+e}catch(a){t.innerHTML=`<div class="error">Error loading events: ${a.message}</div>`}})}renderCalendarView(o=".collections-section.calendar_view"){return r(this,null,function*(){let n=document.querySelector(o);if(n)try{let t=yield this.getEvents();if(!t||t.length===0){let e=n.querySelector(".events-data");e&&(e.innerHTML='<div class="no-data">No events available</div>');let i=n.querySelector(".event-cards-container");i&&(i.innerHTML='<div class="no-data">No events available</div>');return}t.sort((e,i)=>new Date(e.date)-new Date(i.date)),window.calendarEventsData=t;let a=t.map(e=>`
                 <div class="event-data-item" 
-                     data-title="${event.title}"
-                     data-date="${event.date}"
-                     data-location="${event.location || ""}"
-                     data-details="${this.escapeHtml(event.details || "")}">
+                     data-title="${e.title}"
+                     data-date="${e.date}"
+                     data-location="${e.location||""}"
+                     data-details="${this.escapeHtml(e.details||"")}">
                 </div>
-            `).join("");
-        const dataContainer = container.querySelector(".events-data");
-        if (dataContainer) {
-          dataContainer.innerHTML = eventsDataHTML;
-        }
-        const eventCardsHTML = events.map((event, index) => {
-          const eventDate = new Date(event.date);
-          const day = eventDate.getDate();
-          const month = eventDate.toLocaleDateString("en-US", { month: "short" });
-          const time = eventDate.toLocaleTimeString("en-US", {
-            hour: "numeric",
-            minute: "2-digit",
-            hour12: true
-          });
-          return `
-                    <div class="event-card ${index >= 6 ? "hidden-event" : ""}" data-event-date="${event.date}">
-                        <div class="event-card-date-badge" data-date="${event.date}">
-                            <div class="event-day">${day}</div>
-                            <div class="event-month">${month}</div>
+            `).join(""),s=n.querySelector(".events-data");s&&(s.innerHTML=a);let v=t.map((e,i)=>{let l=new Date(e.date),h=l.getDate(),p=l.toLocaleDateString("en-US",{month:"short"}),y=l.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit",hour12:!0});return`
+                    <div class="event-card ${i>=6?"hidden-event":""}" data-event-date="${e.date}">
+                        <div class="event-card-date-badge" data-date="${e.date}">
+                            <div class="event-day">${h}</div>
+                            <div class="event-month">${p}</div>
                         </div>
                         <div class="event-card-content">
-                            <h4 class="event-card-title">${event.title}</h4>
-                            <p class="event-card-time">${time}</p>
-                            <p class="event-card-location">${event.location || "Location TBD"}</p>
-                            ${event.details ? `<p class="event-card-details">${event.details.substring(0, 100)}${event.details.length > 100 ? "..." : ""}</p>` : ""}
+                            <h4 class="event-card-title">${e.title}</h4>
+                            <p class="event-card-time">${y}</p>
+                            <p class="event-card-location">${e.location||"Location TBD"}</p>
+                            ${e.details?`<p class="event-card-details">${e.details.substring(0,100)}${e.details.length>100?"...":""}</p>`:""}
                         </div>
                     </div>
-                `;
-        }).join("");
-        const showMoreButton = events.length > 6 ? `
+                `}).join(""),d=t.length>6?`
                 <button class="event-show-more">Show More Events</button>
-            ` : "";
-        const listContainer = container.querySelector(".event-cards-container");
-        if (listContainer) {
-          listContainer.innerHTML = eventCardsHTML + showMoreButton;
-        }
-        window.dispatchEvent(new CustomEvent("calendarDataLoaded", {
-          detail: { events }
-        }));
-      } catch (error) {
-        console.error("Error loading calendar events:", error);
-        const dataContainer = container.querySelector(".events-data");
-        if (dataContainer) {
-          dataContainer.innerHTML = `<div class="error">Error loading events: ${error.message}</div>`;
-        }
-        const listContainer = container.querySelector(".event-cards-container");
-        if (listContainer) {
-          listContainer.innerHTML = `<div class="error">Error loading events: ${error.message}</div>`;
-        }
-      }
-    }
-    // Helper: Escape HTML to prevent XSS
-    escapeHtml(text) {
-      const div = document.createElement("div");
-      div.textContent = text;
-      return div.innerHTML;
-    }
-    // ========== RENDER COMMUNICATIONS ==========
-    async renderCommunications(containerSelector = ".collections-section.communications") {
-      const container = document.querySelector(containerSelector);
-      if (!container) return;
-      const commsContainer = container.querySelector(".communication-list");
-      if (commsContainer) {
-        commsContainer.innerHTML = '<div class="loading">Loading communications...</div>';
-      }
-      try {
-        const communications = await this.getCommunications();
-        if (!communications || communications.length === 0) {
-          commsContainer.innerHTML = '<div class="no-data">No communications available</div>';
-          return;
-        }
-        communications.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-        const commsHTML = communications.map((comm, index) => `
-                <div class="communication-item ${index >= 3 ? "hidden-comm" : ""}" data-comm-index="${index}">
+            `:"",c=n.querySelector(".event-cards-container");c&&(c.innerHTML=v+d),window.dispatchEvent(new CustomEvent("calendarDataLoaded",{detail:{events:t}}))}catch(t){console.error("Error loading calendar events:",t);let a=n.querySelector(".events-data");a&&(a.innerHTML=`<div class="error">Error loading events: ${t.message}</div>`);let s=n.querySelector(".event-cards-container");s&&(s.innerHTML=`<div class="error">Error loading events: ${t.message}</div>`)}})}escapeHtml(o){let n=document.createElement("div");return n.textContent=o,n.innerHTML}renderCommunications(o=".collections-section.communications"){return r(this,null,function*(){let n=document.querySelector(o);if(!n)return;let t=n.querySelector(".communication-list");t&&(t.innerHTML='<div class="loading">Loading communications...</div>');try{let a=yield this.getCommunications();if(!a||a.length===0){t.innerHTML='<div class="no-data">No communications available</div>';return}a.sort((e,i)=>new Date(i.created_at)-new Date(e.created_at));let s=a.map((e,i)=>`
+                <div class="communication-item ${i>=3?"hidden-comm":""}" data-comm-index="${i}">
                     <div class="communication-header">
                         <button class="communication-button">Click to view info</button>
-                        <h4 class="communication-subject">${comm.subject}</h4>
-                        <p class="communication-date">${this.formatDate(comm.created_at)}</p>
+                        <h4 class="communication-subject">${e.subject}</h4>
+                        <p class="communication-date">${this.formatDate(e.created_at)}</p>
                     </div>
                     <div class="communication-modal-data" style="display: none;">
-                        <div class="communication-modal-subject">${comm.subject}</div>
-                        <div class="communication-modal-date">${this.formatDate(comm.created_at)}</div>
-                        <div class="communication-modal-body">${this.parseMarkdown(comm.content || "")}</div>
+                        <div class="communication-modal-subject">${e.subject}</div>
+                        <div class="communication-modal-date">${this.formatDate(e.created_at)}</div>
+                        <div class="communication-modal-body">${this.parseMarkdown(e.content||"")}</div>
                     </div>
                 </div>
-            `).join("");
-        const showMoreButton = communications.length > 3 ? `
+            `).join(""),v=a.length>3?`
                 <div class="communication-show-more-container">
                     <button class="communication-show-more" id="showMoreComm">Show More</button>
                 </div>
-            ` : "";
-        const modalHTML = `
+            `:"",d=`
                 <div class="popup-modal" id="communicationModal">
                     <div class="communication-modal-overlay modal-overlay"></div>
                     <div class="popup-modal-content">
@@ -273,42 +92,8 @@
                         </div>
                     </div>
                 </div>
-            `;
-        const parentContainer = container.querySelector(".collections-layout");
-        if (parentContainer) {
-          parentContainer.innerHTML = `
-                    <div class="communication-list">${commsHTML}</div>
-                    ${showMoreButton}
-                    ${modalHTML}
-                `;
-        }
-      } catch (error) {
-        commsContainer.innerHTML = `<div class="error">Error loading communications: ${error.message}</div>`;
-      }
-    }
-    // ========== INITIALIZE ALL COLLECTIONS ==========
-    async initializeAll() {
-      const eventsSections = document.querySelectorAll(".collections-section.events");
-      const calendarSections = document.querySelectorAll(".collections-section.calendar_view");
-      const commsSections = document.querySelectorAll(".collections-section.communications");
-      const promises = [];
-      eventsSections.forEach((section) => {
-        promises.push(this.renderEvents(`.collections-section.events`));
-      });
-      calendarSections.forEach((section) => {
-        promises.push(this.renderCalendarView(`.collections-section.calendar_view`));
-      });
-      commsSections.forEach((section) => {
-        promises.push(this.renderCommunications(`.collections-section.communications`));
-      });
-      await Promise.all(promises);
-    }
-  };
-  window.CollectionsAPI = CollectionsAPI;
-  document.addEventListener("DOMContentLoaded", () => {
-    const apiUrl = "/api/database";
-    const collectionsAPI = new CollectionsAPI(apiUrl);
-    collectionsAPI.initializeAll();
-  });
-})();
-//# sourceMappingURL=collections-api.js.map
+            `,c=n.querySelector(".collections-layout");c&&(c.innerHTML=`
+                    <div class="communication-list">${s}</div>
+                    ${v}
+                    ${d}
+                `)}catch(a){t.innerHTML=`<div class="error">Error loading communications: ${a.message}</div>`}})}initializeAll(){return r(this,null,function*(){let o=document.querySelectorAll(".collections-section.events"),n=document.querySelectorAll(".collections-section.calendar_view"),t=document.querySelectorAll(".collections-section.communications"),a=[];o.forEach(s=>{a.push(this.renderEvents(".collections-section.events"))}),n.forEach(s=>{a.push(this.renderCalendarView(".collections-section.calendar_view"))}),t.forEach(s=>{a.push(this.renderCommunications(".collections-section.communications"))}),yield Promise.all(a)})}};window.CollectionsAPI=u;document.addEventListener("DOMContentLoaded",()=>{let m="/api/database";new u(m).initializeAll()});})();
