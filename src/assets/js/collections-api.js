@@ -173,10 +173,8 @@ class CollectionsAPI {
 
             eventsContainer.innerHTML = eventDetailsHTML + eventListContainerHTML + modalHTML;
 
-            // Re-initialize event handlers (if events.js is loaded)
-            if (window.initializeEventHandlers) {
-                window.initializeEventHandlers();
-            }
+            // events.js will automatically attach event handlers on DOMContentLoaded
+            // No need to manually reinitialize since it uses event delegation
 
         } catch (error) {
             eventsContainer.innerHTML = `<div class="error">Error loading events: ${error.message}</div>`;
@@ -192,16 +190,31 @@ class CollectionsAPI {
         try {
             const events = await this.getEvents();
             
+            if (!events || events.length === 0) {
+                const dataContainer = container.querySelector('.events-data');
+                if (dataContainer) {
+                    dataContainer.innerHTML = '<div class="no-data">No events available</div>';
+                }
+                const listContainer = container.querySelector('.event-cards-container');
+                if (listContainer) {
+                    listContainer.innerHTML = '<div class="no-data">No events available</div>';
+                }
+                return;
+            }
+
+            // Sort events by date
+            events.sort((a, b) => new Date(a.date) - new Date(b.date));
+            
             // Store events data for calendar.js to use
             window.calendarEventsData = events;
 
-            // Hidden data for calendar
+            // 1. Hidden data for calendar view
             const eventsDataHTML = events.map(event => `
                 <div class="event-data-item" 
                      data-title="${event.title}"
                      data-date="${event.date}"
-                     data-location="${event.location}"
-                     data-details="${event.details || ''}">
+                     data-location="${event.location || ''}"
+                     data-details="${this.escapeHtml(event.details || '')}">
                 </div>
             `).join('');
 
@@ -210,14 +223,65 @@ class CollectionsAPI {
                 dataContainer.innerHTML = eventsDataHTML;
             }
 
-            // Re-initialize calendar if calendar-view.js is loaded
-            if (window.initializeCalendar) {
-                window.initializeCalendar();
+            // 2. Event cards for list view
+            const eventCardsHTML = events.map((event, index) => {
+                const eventDate = new Date(event.date);
+                const day = eventDate.getDate();
+                const month = eventDate.toLocaleDateString('en-US', { month: 'short' });
+                const time = eventDate.toLocaleTimeString('en-US', { 
+                    hour: 'numeric', 
+                    minute: '2-digit',
+                    hour12: true 
+                });
+
+                return `
+                    <div class="event-card ${index >= 6 ? 'hidden-event' : ''}" data-event-date="${event.date}">
+                        <div class="event-card-date-badge" data-date="${event.date}">
+                            <div class="event-day">${day}</div>
+                            <div class="event-month">${month}</div>
+                        </div>
+                        <div class="event-card-content">
+                            <h4 class="event-card-title">${event.title}</h4>
+                            <p class="event-card-time">${time}</p>
+                            <p class="event-card-location">${event.location || 'Location TBD'}</p>
+                            ${event.details ? `<p class="event-card-details">${event.details.substring(0, 100)}${event.details.length > 100 ? '...' : ''}</p>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            const showMoreButton = events.length > 6 ? `
+                <button class="event-show-more">Show More Events</button>
+            ` : '';
+
+            const listContainer = container.querySelector('.event-cards-container');
+            if (listContainer) {
+                listContainer.innerHTML = eventCardsHTML + showMoreButton;
             }
+
+            // Dispatch custom event to notify calendar-view.js that data is ready
+            window.dispatchEvent(new CustomEvent('calendarDataLoaded', { 
+                detail: { events } 
+            }));
 
         } catch (error) {
             console.error('Error loading calendar events:', error);
+            const dataContainer = container.querySelector('.events-data');
+            if (dataContainer) {
+                dataContainer.innerHTML = `<div class="error">Error loading events: ${error.message}</div>`;
+            }
+            const listContainer = container.querySelector('.event-cards-container');
+            if (listContainer) {
+                listContainer.innerHTML = `<div class="error">Error loading events: ${error.message}</div>`;
+            }
         }
+    }
+
+    // Helper: Escape HTML to prevent XSS
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
     }
 
     // ========== RENDER COMMUNICATIONS ==========
@@ -239,20 +303,20 @@ class CollectionsAPI {
                 return;
             }
 
-            // Sort by date, most recent first
-            communications.sort((a, b) => new Date(b.date) - new Date(a.date));
+            // Sort by created_at, most recent first (DB uses created_at, not date)
+            communications.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
             const commsHTML = communications.map((comm, index) => `
                 <div class="communication-item ${index >= 3 ? 'hidden-comm' : ''}" data-comm-index="${index}">
                     <div class="communication-header">
                         <button class="communication-button">Click to view info</button>
                         <h4 class="communication-subject">${comm.subject}</h4>
-                        <p class="communication-date">${this.formatDate(comm.date)}</p>
+                        <p class="communication-date">${this.formatDate(comm.created_at)}</p>
                     </div>
                     <div class="communication-modal-data" style="display: none;">
                         <div class="communication-modal-subject">${comm.subject}</div>
-                        <div class="communication-modal-date">${this.formatDate(comm.date)}</div>
-                        <div class="communication-modal-body">${this.parseMarkdown(comm.content)}</div>
+                        <div class="communication-modal-date">${this.formatDate(comm.created_at)}</div>
+                        <div class="communication-modal-body">${this.parseMarkdown(comm.content || '')}</div>
                     </div>
                 </div>
             `).join('');
@@ -286,10 +350,8 @@ class CollectionsAPI {
                 `;
             }
 
-            // Re-initialize communication handlers if available
-            if (window.initializeCommunicationHandlers) {
-                window.initializeCommunicationHandlers();
-            }
+            // communication-modal.js will automatically attach handlers on DOMContentLoaded
+            // No need to manually reinitialize since it uses event delegation
 
         } catch (error) {
             commsContainer.innerHTML = `<div class="error">Error loading communications: ${error.message}</div>`;
@@ -328,8 +390,12 @@ window.CollectionsAPI = CollectionsAPI;
 // Auto-initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     // You can change this URL to your external API server later
-    const apiUrl = '/api/database'; // Change to 'https://your-api-server.com' later
-    
+    // const apiUrl = window.location.hostname =='localhost'?'api/database':'http://167.172.22.76/api/database';
+    // if(window.location.hostname !== 'localhost' && window.location.hostname !== ''){
+    // const apiUrl = '/api/database'; // Change to 'https://your-api-server.com' later
+    // }else{
+    const apiUrl = '/api/database';
+    // }
     const collectionsAPI = new CollectionsAPI(apiUrl);
     collectionsAPI.initializeAll();
 });

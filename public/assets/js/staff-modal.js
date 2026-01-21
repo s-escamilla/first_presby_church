@@ -1,1 +1,45 @@
-(()=>{document.addEventListener("DOMContentLoaded",function(){let e=document.getElementById("staffModal"),d=document.querySelectorAll(".read-more-btn"),a=document.querySelector(".staff-modal-overlay"),c=document.querySelector(".staff-modal-close");d.forEach(n=>{n.addEventListener("click",function(r){r.preventDefault();let t=this.closest(".staff-card").querySelector(".staff-modal-data"),l=t.querySelector(".staff-modal-name").textContent,s=t.querySelector(".staff-modal-title").textContent,f=t.querySelector(".staff-modal-photo").textContent,i=t.querySelector(".staff-modal-date").textContent,m=t.querySelector(".staff-modal-bio").innerHTML;e.querySelector(".modal-name").textContent=l,e.querySelector(".modal-title").textContent=s,e.querySelector(".modal-photo").src=f,e.querySelector(".modal-photo").alt=l,e.querySelector(".modal-date").textContent="Since: "+i,e.querySelector(".modal-bio").innerHTML=m,e.classList.add("active"),document.body.style.overflow="hidden"})}),c&&c.addEventListener("click",o),a&&a.addEventListener("click",o),document.addEventListener("keydown",function(n){n.key==="Escape"&&e.classList.contains("active")&&o()});function o(){e.classList.remove("active"),document.body.style.overflow=""}});})();
+(() => {
+  // src/assets/js/staff-modal.js
+  document.addEventListener("DOMContentLoaded", function() {
+    const modal = document.getElementById("staffModal");
+    const readMoreButtons = document.querySelectorAll(".read-more-btn");
+    const modalOverlay = document.querySelector(".staff-modal-overlay");
+    const closeBtn = document.querySelector(".staff-modal-close");
+    readMoreButtons.forEach((button) => {
+      button.addEventListener("click", function(e) {
+        e.preventDefault();
+        const staffCard = this.closest(".staff-card");
+        const modalData = staffCard.querySelector(".staff-modal-data");
+        const name = modalData.querySelector(".staff-modal-name").textContent;
+        const title = modalData.querySelector(".staff-modal-title").textContent;
+        const photo = modalData.querySelector(".staff-modal-photo").textContent;
+        const date = modalData.querySelector(".staff-modal-date").textContent;
+        const bio = modalData.querySelector(".staff-modal-bio").innerHTML;
+        modal.querySelector(".modal-name").textContent = name;
+        modal.querySelector(".modal-title").textContent = title;
+        modal.querySelector(".modal-photo").src = photo;
+        modal.querySelector(".modal-photo").alt = name;
+        modal.querySelector(".modal-date").textContent = "Since: " + date;
+        modal.querySelector(".modal-bio").innerHTML = bio;
+        modal.classList.add("active");
+        document.body.style.overflow = "hidden";
+      });
+    });
+    if (closeBtn) {
+      closeBtn.addEventListener("click", closeModal);
+    }
+    if (modalOverlay) {
+      modalOverlay.addEventListener("click", closeModal);
+    }
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Escape" && modal.classList.contains("active")) {
+        closeModal();
+      }
+    });
+    function closeModal() {
+      modal.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+  });
+})();
+//# sourceMappingURL=staff-modal.js.map

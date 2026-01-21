@@ -8,30 +8,49 @@ document.addEventListener('DOMContentLoaded', function() {
     
     let currentDate = new Date();
     let selectedDate = null;
-    
-    // Mark past event cards
-    const eventCards = document.querySelectorAll('.event-card');
-    const now = new Date();
-    eventCards.forEach(card => {
-        const eventDate = new Date(card.dataset.eventDate);
-        if (eventDate < now) {
-            card.classList.add('past-event');
+
+    // Function to initialize event cards (called after API loads data)
+    function initializeEventCards() {
+        // Mark past event cards
+        const eventCards = document.querySelectorAll('.event-card');
+        const now = new Date();
+        eventCards.forEach(card => {
+            const eventDate = new Date(card.dataset.eventDate);
+            if (eventDate < now) {
+                card.classList.add('past-event');
+            }
+        });
+        
+        // Populate date badges in list view (already populated by API now)
+        // This code is kept for backwards compatibility if static HTML is used
+        const dateBadges = document.querySelectorAll('.event-card-date-badge');
+        dateBadges.forEach(badge => {
+            const dateStr = badge.dataset.date;
+            if (dateStr && !badge.querySelector('.event-day').textContent) {
+                const date = new Date(dateStr);
+                const day = date.getDate();
+                const month = date.toLocaleDateString('en-US', { month: 'short' });
+                
+                badge.querySelector('.event-day').textContent = day;
+                badge.querySelector('.event-month').textContent = month;
+            }
+        });
+
+        // Re-attach "View More" event listener
+        const showMoreBtn = document.querySelector('.event-show-more');
+        if (showMoreBtn) {
+            showMoreBtn.addEventListener('click', function() {
+                const hiddenEvents = document.querySelectorAll('.event-card.hidden-event');
+                hiddenEvents.forEach(event => {
+                    event.classList.remove('hidden-event');
+                });
+                this.style.display = 'none';
+            });
         }
-    });
-    
-    // Populate date badges in list view
-    const dateBadges = document.querySelectorAll('.event-card-date-badge');
-    dateBadges.forEach(badge => {
-        const dateStr = badge.dataset.date;
-        if (dateStr) {
-            const date = new Date(dateStr);
-            const day = date.getDate();
-            const month = date.toLocaleDateString('en-US', { month: 'short' });
-            
-            badge.querySelector('.event-day').textContent = day;
-            badge.querySelector('.event-month').textContent = month;
-        }
-    });
+    }
+
+    // Initialize on page load (for static content)
+    initializeEventCards();
     
     // View Toggle
     viewButtons.forEach(btn => {
@@ -53,19 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Event List "View More" functionality
-    const showMoreBtn = document.querySelector('.event-show-more');
-    if (showMoreBtn) {
-        showMoreBtn.addEventListener('click', function() {
-            const hiddenEvents = document.querySelectorAll('.event-card.hidden-event');
-            hiddenEvents.forEach(event => {
-                event.classList.remove('hidden-event');
-            });
-            this.style.display = 'none';
-        });
-    }
-    
-    // Get events data
+    // Get events data (called dynamically when rendering calendar)
     function getEventsData() {
         const eventsDataItems = document.querySelectorAll('.event-data-item');
         return Array.from(eventsDataItems).map(item => ({
@@ -75,8 +82,6 @@ document.addEventListener('DOMContentLoaded', function() {
             details: item.dataset.details
         }));
     }
-    
-    const events = getEventsData();
     
     // Calendar navigation
     const prevMonthBtn = document.querySelector('.prev-month');
@@ -102,6 +107,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const calendarGrid = document.querySelector('.calendar-grid');
         
         if (!monthYearElement || !calendarGrid) return;
+        
+        // Get fresh events data each time we render
+        const events = getEventsData();
         
         const year = currentDate.getFullYear();
         const month = currentDate.getMonth();
@@ -329,6 +337,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Initialize calendar
+    // Initialize calendar (will render once data is available)
     renderCalendar();
+
+    // Listen for API data loaded event and re-initialize
+    window.addEventListener('calendarDataLoaded', function() {
+        initializeEventCards();
+        renderCalendar();
+    });
 });

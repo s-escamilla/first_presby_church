@@ -1,1 +1,255 @@
-(()=>{document.addEventListener("DOMContentLoaded",function(){let N=document.querySelectorAll(".view-btn"),L=document.querySelector(".events-calendar-view"),D=document.querySelector(".events-list-view");if(!L||!D)return;let u=new Date,g=null,k=document.querySelectorAll(".event-card"),B=new Date;k.forEach(n=>{new Date(n.dataset.eventDate)<B&&n.classList.add("past-event")}),document.querySelectorAll(".event-card-date-badge").forEach(n=>{let e=n.dataset.date;if(e){let a=new Date(e),s=a.getDate(),y=a.toLocaleDateString("en-US",{month:"short"});n.querySelector(".event-day").textContent=s,n.querySelector(".event-month").textContent=y}}),N.forEach(n=>{n.addEventListener("click",function(){let e=this.dataset.view;N.forEach(a=>a.classList.remove("active")),this.classList.add("active"),e==="calendar"?(L.classList.add("active-view"),D.classList.remove("active-view")):(L.classList.remove("active-view"),D.classList.add("active-view"))})});let M=document.querySelector(".event-show-more");M&&M.addEventListener("click",function(){document.querySelectorAll(".event-card.hidden-event").forEach(e=>{e.classList.remove("hidden-event")}),this.style.display="none"});function H(){let n=document.querySelectorAll(".event-data-item");return Array.from(n).map(e=>({title:e.dataset.title,date:new Date(e.dataset.date),location:e.dataset.location,details:e.dataset.details}))}let A=H(),q=document.querySelector(".prev-month"),x=document.querySelector(".next-month");q&&q.addEventListener("click",()=>{u.setMonth(u.getMonth()-1),E()}),x&&x.addEventListener("click",()=>{u.setMonth(u.getMonth()+1),E()});function E(){let n=document.querySelector(".calendar-month-year"),e=document.querySelector(".calendar-grid");if(!n||!e)return;let a=u.getFullYear(),s=u.getMonth(),y=["January","February","March","April","May","June","July","August","September","October","November","December"];n.textContent=`${y[s]} ${a}`,e.innerHTML="",["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].forEach(o=>{let t=document.createElement("div");t.className="calendar-day-header",t.textContent=o,e.appendChild(t)});let p=new Date(a,s,1).getDay(),f=new Date(a,s+1,0).getDate();for(let o=0;o<p;o++){let t=document.createElement("div");t.className="calendar-day empty",e.appendChild(t)}for(let o=1;o<=f;o++){let t=document.createElement("div");t.className="calendar-day";let h=new Date(a,s,o),d=A.filter(c=>c.date.toDateString()===h.toDateString()),l=document.createElement("div");if(l.className="calendar-day-number",l.textContent=o,t.appendChild(l),d.length>0){t.classList.add("has-event");let c=document.createElement("div");c.className="calendar-day-events",d.forEach(T=>{let C=document.createElement("div");C.className="event-chip";let S=document.createElement("span");S.className="event-chip-time",S.textContent=b(T.date);let w=document.createElement("span");w.className="event-chip-title",w.textContent=T.title,C.appendChild(S),C.appendChild(w),c.appendChild(C)}),t.appendChild(c)}let i=new Date;i.setHours(0,0,0,0);let m=new Date(h);m.setHours(0,0,0,0),m.toDateString()===i.toDateString()&&t.classList.add("today"),m<i&&t.classList.add("past-day"),g&&h.toDateString()===g.toDateString()&&t.classList.add("selected"),t.addEventListener("click",()=>{d.length>0&&(g=h,E(),$(h,d))}),e.appendChild(t)}}function $(n,e){let a=document.getElementById("calendarModal");if(!a)return;let s={weekday:"long",year:"numeric",month:"long",day:"numeric"},y=n.toLocaleDateString("en-US",s),v=a.querySelector(".calendar-modal-body");if(!v)return;v.innerHTML="";let p=document.createElement("h2");p.className="modal-date-header",p.textContent=y,v.appendChild(p);let f=document.createElement("p");f.className="modal-event-count",f.textContent=`${e.length} Event${e.length>1?"s":""}`,v.appendChild(f);let o=document.createElement("div");o.className="modal-events-container",e.forEach((t,h)=>{let d=document.createElement("div");d.className="modal-event-card";let l=document.createElement("span"),i=document.createElement("p");i.className="modal-event-title",i.textContent=t.title,l.appendChild(i);let m=document.createElement("p");if(m.className="modal-event-time",m.innerHTML=`<strong>Time:</strong> ${b(t.date)}`,l.appendChild(m),t.location){let c=document.createElement("p");c.className="modal-event-location",c.innerHTML=`<strong>Location:</strong> ${t.location}`,l.appendChild(c)}if(d.appendChild(l),t.details){let c=document.createElement("div");c.className="modal-event-details",c.innerHTML=t.details,d.appendChild(c)}o.appendChild(d)}),v.appendChild(o),a.classList.add("active"),document.body.style.overflow="hidden"}let r=document.getElementById("calendarModal");if(r){let n=r.querySelector(".calendar-modal-close"),e=r.querySelector(".calendar-modal-overlay");n&&n.addEventListener("click",()=>{r.classList.remove("active"),document.body.style.overflow=""}),e&&e.addEventListener("click",()=>{r.classList.remove("active"),document.body.style.overflow=""}),document.addEventListener("keydown",a=>{a.key==="Escape"&&r.classList.contains("active")&&(r.classList.remove("active"),document.body.style.overflow="")})}function b(n){return n.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit",hour12:!0})}E()});})();
+(() => {
+  // src/assets/js/calendar-view.js
+  document.addEventListener("DOMContentLoaded", function() {
+    const viewButtons = document.querySelectorAll(".view-btn");
+    const calendarView = document.querySelector(".events-calendar-view");
+    const listView = document.querySelector(".events-list-view");
+    if (!calendarView || !listView) return;
+    let currentDate = /* @__PURE__ */ new Date();
+    let selectedDate = null;
+    function initializeEventCards() {
+      const eventCards = document.querySelectorAll(".event-card");
+      const now = /* @__PURE__ */ new Date();
+      eventCards.forEach((card) => {
+        const eventDate = new Date(card.dataset.eventDate);
+        if (eventDate < now) {
+          card.classList.add("past-event");
+        }
+      });
+      const dateBadges = document.querySelectorAll(".event-card-date-badge");
+      dateBadges.forEach((badge) => {
+        const dateStr = badge.dataset.date;
+        if (dateStr && !badge.querySelector(".event-day").textContent) {
+          const date = new Date(dateStr);
+          const day = date.getDate();
+          const month = date.toLocaleDateString("en-US", { month: "short" });
+          badge.querySelector(".event-day").textContent = day;
+          badge.querySelector(".event-month").textContent = month;
+        }
+      });
+      const showMoreBtn = document.querySelector(".event-show-more");
+      if (showMoreBtn) {
+        showMoreBtn.addEventListener("click", function() {
+          const hiddenEvents = document.querySelectorAll(".event-card.hidden-event");
+          hiddenEvents.forEach((event) => {
+            event.classList.remove("hidden-event");
+          });
+          this.style.display = "none";
+        });
+      }
+    }
+    initializeEventCards();
+    viewButtons.forEach((btn) => {
+      btn.addEventListener("click", function() {
+        const view = this.dataset.view;
+        viewButtons.forEach((b) => b.classList.remove("active"));
+        this.classList.add("active");
+        if (view === "calendar") {
+          calendarView.classList.add("active-view");
+          listView.classList.remove("active-view");
+        } else {
+          calendarView.classList.remove("active-view");
+          listView.classList.add("active-view");
+        }
+      });
+    });
+    function getEventsData() {
+      const eventsDataItems = document.querySelectorAll(".event-data-item");
+      return Array.from(eventsDataItems).map((item) => ({
+        title: item.dataset.title,
+        date: new Date(item.dataset.date),
+        location: item.dataset.location,
+        details: item.dataset.details
+      }));
+    }
+    const prevMonthBtn = document.querySelector(".prev-month");
+    const nextMonthBtn = document.querySelector(".next-month");
+    if (prevMonthBtn) {
+      prevMonthBtn.addEventListener("click", () => {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        renderCalendar();
+      });
+    }
+    if (nextMonthBtn) {
+      nextMonthBtn.addEventListener("click", () => {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        renderCalendar();
+      });
+    }
+    function renderCalendar() {
+      const monthYearElement = document.querySelector(".calendar-month-year");
+      const calendarGrid = document.querySelector(".calendar-grid");
+      if (!monthYearElement || !calendarGrid) return;
+      const events = getEventsData();
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth();
+      const monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ];
+      monthYearElement.textContent = `${monthNames[month]} ${year}`;
+      calendarGrid.innerHTML = "";
+      const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      dayNames.forEach((day) => {
+        const dayHeader = document.createElement("div");
+        dayHeader.className = "calendar-day-header";
+        dayHeader.textContent = day;
+        calendarGrid.appendChild(dayHeader);
+      });
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      for (let i = 0; i < firstDay; i++) {
+        const emptyCell = document.createElement("div");
+        emptyCell.className = "calendar-day empty";
+        calendarGrid.appendChild(emptyCell);
+      }
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dayCell = document.createElement("div");
+        dayCell.className = "calendar-day";
+        const cellDate = new Date(year, month, day);
+        const dayEvents = events.filter(
+          (event) => event.date.toDateString() === cellDate.toDateString()
+        );
+        const dayNumber = document.createElement("div");
+        dayNumber.className = "calendar-day-number";
+        dayNumber.textContent = day;
+        dayCell.appendChild(dayNumber);
+        if (dayEvents.length > 0) {
+          dayCell.classList.add("has-event");
+          const eventsContainer = document.createElement("div");
+          eventsContainer.className = "calendar-day-events";
+          dayEvents.forEach((event) => {
+            const eventChip = document.createElement("div");
+            eventChip.className = "event-chip";
+            const eventTime = document.createElement("span");
+            eventTime.className = "event-chip-time";
+            eventTime.textContent = formatTime(event.date);
+            const eventTitle = document.createElement("span");
+            eventTitle.className = "event-chip-title";
+            eventTitle.textContent = event.title;
+            eventChip.appendChild(eventTime);
+            eventChip.appendChild(eventTitle);
+            eventsContainer.appendChild(eventChip);
+          });
+          dayCell.appendChild(eventsContainer);
+        }
+        const today = /* @__PURE__ */ new Date();
+        today.setHours(0, 0, 0, 0);
+        const checkDate = new Date(cellDate);
+        checkDate.setHours(0, 0, 0, 0);
+        if (checkDate.toDateString() === today.toDateString()) {
+          dayCell.classList.add("today");
+        }
+        if (checkDate < today) {
+          dayCell.classList.add("past-day");
+        }
+        if (selectedDate && cellDate.toDateString() === selectedDate.toDateString()) {
+          dayCell.classList.add("selected");
+        }
+        dayCell.addEventListener("click", () => {
+          if (dayEvents.length > 0) {
+            selectedDate = cellDate;
+            renderCalendar();
+            showEventsForDate(cellDate, dayEvents);
+          }
+        });
+        calendarGrid.appendChild(dayCell);
+      }
+    }
+    function showEventsForDate(date, dayEvents) {
+      const modal2 = document.getElementById("calendarModal");
+      if (!modal2) return;
+      const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
+      const formattedDate = date.toLocaleDateString("en-US", options);
+      const modalBody = modal2.querySelector(".calendar-modal-body");
+      if (!modalBody) return;
+      modalBody.innerHTML = "";
+      const dateHeader = document.createElement("h2");
+      dateHeader.className = "modal-date-header";
+      dateHeader.textContent = formattedDate;
+      modalBody.appendChild(dateHeader);
+      const eventCount = document.createElement("p");
+      eventCount.className = "modal-event-count";
+      eventCount.textContent = `${dayEvents.length} Event${dayEvents.length > 1 ? "s" : ""}`;
+      modalBody.appendChild(eventCount);
+      const eventsContainer = document.createElement("div");
+      eventsContainer.className = "modal-events-container";
+      dayEvents.forEach((event, index) => {
+        const eventCard = document.createElement("div");
+        eventCard.className = "modal-event-card";
+        const cardHeader = document.createElement("span");
+        const title = document.createElement("p");
+        title.className = "modal-event-title";
+        title.textContent = event.title;
+        cardHeader.appendChild(title);
+        const time = document.createElement("p");
+        time.className = "modal-event-time";
+        time.innerHTML = `<strong>Time:</strong> ${formatTime(event.date)}`;
+        cardHeader.appendChild(time);
+        if (event.location) {
+          const location = document.createElement("p");
+          location.className = "modal-event-location";
+          location.innerHTML = `<strong>Location:</strong> ${event.location}`;
+          cardHeader.appendChild(location);
+        }
+        eventCard.appendChild(cardHeader);
+        if (event.details) {
+          const details = document.createElement("div");
+          details.className = "modal-event-details";
+          details.innerHTML = event.details;
+          eventCard.appendChild(details);
+        }
+        eventsContainer.appendChild(eventCard);
+      });
+      modalBody.appendChild(eventsContainer);
+      modal2.classList.add("active");
+      document.body.style.overflow = "hidden";
+    }
+    const modal = document.getElementById("calendarModal");
+    if (modal) {
+      const closeBtn = modal.querySelector(".calendar-modal-close");
+      const overlay = modal.querySelector(".calendar-modal-overlay");
+      if (closeBtn) {
+        closeBtn.addEventListener("click", () => {
+          modal.classList.remove("active");
+          document.body.style.overflow = "";
+        });
+      }
+      if (overlay) {
+        overlay.addEventListener("click", () => {
+          modal.classList.remove("active");
+          document.body.style.overflow = "";
+        });
+      }
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal.classList.contains("active")) {
+          modal.classList.remove("active");
+          document.body.style.overflow = "";
+        }
+      });
+    }
+    function formatTime(date) {
+      return date.toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true
+      });
+    }
+    renderCalendar();
+    window.addEventListener("calendarDataLoaded", function() {
+      initializeEventCards();
+      renderCalendar();
+    });
+  });
+})();
+//# sourceMappingURL=calendar-view.js.map

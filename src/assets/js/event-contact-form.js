@@ -148,7 +148,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         try {
             // Get API endpoint from data attribute or use default
-            const apiEndpoint = form.dataset.apiEndpoint || '/api/database/index.php';
+            if(window.location.hostname !== 'localhost' && window.location.hostname !== ''){
+                const apiEndpoint = form.dataset.apiEndpoint || 'http://167.172.22.76/api/database/index.php';
+            } else {
+                const apiEndpoint = form.dataset.apiEndpoint || '/api/database/index.php';
+            }
             
             const response = await fetch(apiEndpoint, {
                 method: 'POST',

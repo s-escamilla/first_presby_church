@@ -1,12 +1,97 @@
-(()=>{document.addEventListener("DOMContentLoaded",function(){let a=document.querySelectorAll(".event-item"),s=document.querySelector(".event-details"),e=document.querySelector(".popup-modal"),u=document.querySelector(".event-modal-overlay"),y=document.querySelector(".event-modal-close");if(!a.length)return;let m=new Date;a.forEach(t=>{new Date(t.dataset.eventDate)<m&&t.classList.add("past-event")});function f(){return window.innerWidth<768}function p(t,i,c,n){let o=`
+(() => {
+  // src/assets/js/events.js
+  document.addEventListener("DOMContentLoaded", function() {
+    const eventItems = document.querySelectorAll(".event-item");
+    const eventDetails = document.querySelector(".event-details");
+    const eventModal = document.querySelector(".popup-modal");
+    const eventModalOverlay = document.querySelector(".event-modal-overlay");
+    const eventModalClose = document.querySelector(".event-modal-close");
+    if (!eventItems.length) return;
+    const now = /* @__PURE__ */ new Date();
+    eventItems.forEach((item) => {
+      const eventDate = new Date(item.dataset.eventDate);
+      if (eventDate < now) {
+        item.classList.add("past-event");
+      }
+    });
+    function isMobile() {
+      return window.innerWidth < 768;
+    }
+    function updateEventDetails(title, date, location, details) {
+      let detailsHTML = `
             <div class="event-details-content">
-                <h3 class="event-title">${t}</h3>
-                <p class="event-date">${i}</p>
+                <h3 class="event-title">${title}</h3>
+                <p class="event-date">${date}</p>
                 <div class="event-location">
-                    <p>${c}</p>
+                    <p>${location}</p>
                 </div>
-        `;return n&&n.trim()!==""&&(o+=`
+        `;
+      if (details && details.trim() !== "") {
+        detailsHTML += `
                 <div class="event-full-details">
-                    <p>${n}</p>
+                    <p>${details}</p>
                 </div>
-            `),o+="</div>",o}function L(t,i,c,n){if(!e)return;let o=e.querySelector(".modal-event-title"),l=e.querySelector(".modal-event-date"),d=e.querySelector(".modal-event-location"),r=e.querySelector(".modal-event-details");o&&(o.textContent=t),l&&(l.textContent=i),d&&(d.textContent=c),r&&(n&&n.trim()!==""?(r.textContent=n,r.style.display="block"):r.style.display="none"),e.classList.add("active"),document.body.style.overflow="hidden"}function v(){e&&(e.classList.remove("active"),document.body.style.overflow="")}y&&y.addEventListener("click",v),u&&u.addEventListener("click",v),document.addEventListener("keydown",function(t){t.key==="Escape"&&e&&e.classList.contains("active")&&v()}),a.forEach(t=>{t.addEventListener("click",function(){a.forEach(d=>d.classList.remove("active")),this.classList.add("active");let i=this.querySelector(".event-item-title").textContent,c=this.querySelector(".event-item-date").textContent,n=this.querySelector(".event-item-data"),o=n.querySelector(".event-location").textContent,l=n.querySelector(".event-details").textContent;f()?L(i,c,o,l):s&&(s.style.opacity="0",setTimeout(()=>{s.innerHTML=p(i,c,o,l),s.style.opacity="1"},200))})})});})();
+            `;
+      }
+      detailsHTML += `</div>`;
+      return detailsHTML;
+    }
+    function showModal(title, date, location, details) {
+      if (!eventModal) return;
+      const modalTitle = eventModal.querySelector(".modal-event-title");
+      const modalDate = eventModal.querySelector(".modal-event-date");
+      const modalLocation = eventModal.querySelector(".modal-event-location");
+      const modalDetails = eventModal.querySelector(".modal-event-details");
+      if (modalTitle) modalTitle.textContent = title;
+      if (modalDate) modalDate.textContent = date;
+      if (modalLocation) modalLocation.textContent = location;
+      if (modalDetails) {
+        if (details && details.trim() !== "") {
+          modalDetails.textContent = details;
+          modalDetails.style.display = "block";
+        } else {
+          modalDetails.style.display = "none";
+        }
+      }
+      eventModal.classList.add("active");
+      document.body.style.overflow = "hidden";
+    }
+    function closeModal() {
+      if (!eventModal) return;
+      eventModal.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+    if (eventModalClose) {
+      eventModalClose.addEventListener("click", closeModal);
+    }
+    if (eventModalOverlay) {
+      eventModalOverlay.addEventListener("click", closeModal);
+    }
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Escape" && eventModal && eventModal.classList.contains("active")) {
+        closeModal();
+      }
+    });
+    eventItems.forEach((item) => {
+      item.addEventListener("click", function() {
+        eventItems.forEach((el) => el.classList.remove("active"));
+        this.classList.add("active");
+        const title = this.querySelector(".event-item-title").textContent;
+        const date = this.querySelector(".event-item-date").textContent;
+        const dataContainer = this.querySelector(".event-item-data");
+        const location = dataContainer.querySelector(".event-location").textContent;
+        const details = dataContainer.querySelector(".event-details").textContent;
+        if (isMobile()) {
+          showModal(title, date, location, details);
+        } else if (eventDetails) {
+          eventDetails.style.opacity = "0";
+          setTimeout(() => {
+            eventDetails.innerHTML = updateEventDetails(title, date, location, details);
+            eventDetails.style.opacity = "1";
+          }, 200);
+        }
+      });
+    });
+  });
+})();
+//# sourceMappingURL=events.js.map
