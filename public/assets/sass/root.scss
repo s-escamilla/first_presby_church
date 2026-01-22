@@ -799,9 +799,13 @@ p{
 			background: white;	
 			}
 			h2 {
+					&.events{
+						color:white;
+						background-color:var(--primary);
+					}
 					font-size: var(--fontSizeH2);
-					color: white;
-					background-color:var(--primary);
+					color: black;
+					background-color:white;
 					padding-bottom: 1rem;
 					padding-top:1rem;
 					margin:0;
@@ -982,8 +986,8 @@ p{
 				
 				}
 				
-				&.calendar_view {						
-					span{
+				&.calendar_view {
+					.modal-event-card>div{
 							width: 100%;
 							display: flex;
 							justify-content: center;

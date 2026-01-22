@@ -2,7 +2,7 @@
 {# This renders empty containers that will be populated by collections-api.js #}
 {% macro render(section, collections) %}
 <section class="collections-section {{section.sectionType}} cs-style" data-api-collection="{{section.sectionType}}">
-    <h2>{{ section.header or "Collection Items" }}</h2>
+    <h2 class="{{section.sectionType}}">{{ section.header or "Collection Items" }}</h2>
     <div class="cs-container">
         <div class="collections-layout {{ section.sectionType }}">
             {% if section.sectionType == "events" %}

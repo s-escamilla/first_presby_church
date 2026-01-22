@@ -256,7 +256,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const eventCard = document.createElement('div');
             eventCard.className = 'modal-event-card';
             
-            const cardHeader = document.createElement('span');
+            const cardHeader = document.createElement('div');
             
             // Event title
             const title = document.createElement('p');
