@@ -47,7 +47,9 @@ class CollectionsAPI {
 
     // Get events
     async getEvents() {
-        return this.fetchCollection('events');
+        await this.fetchCollection('events').then(()=>{
+            addListeners();});
+        return 
     }
 
     // Get communications  

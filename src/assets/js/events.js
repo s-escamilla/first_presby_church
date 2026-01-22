@@ -1,5 +1,6 @@
 // Events Section - Interactive Event List
-document.addEventListener('DOMContentLoaded', function() {
+function addListeners(){
+// document.addEventListener('DOMContentLoaded', function() {
     const eventItems = document.querySelectorAll('.event-item');
     const eventDetails = document.querySelector('.event-details');
     const eventModal = document.querySelector('.popup-modal');
@@ -126,4 +127,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-});
+}
