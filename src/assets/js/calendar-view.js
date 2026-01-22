@@ -35,22 +35,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 badge.querySelector('.event-month').textContent = month;
             }
         });
-
-        // Re-attach "View More" event listener
-        const showMoreBtn = document.querySelector('.event-show-more');
-        if (showMoreBtn) {
-            showMoreBtn.addEventListener('click', function() {
-                const hiddenEvents = document.querySelectorAll('.event-card.hidden-event');
-                hiddenEvents.forEach(event => {
-                    event.classList.remove('hidden-event');
-                });
-                this.style.display = 'none';
-            });
-        }
     }
 
     // Initialize on page load (for static content)
     initializeEventCards();
+
+    // Use event delegation for "Show More" button
+    document.body.addEventListener('click', function(e) {
+        if (e.target.matches('.event-show-more')) {
+            const hiddenEvents = document.querySelectorAll('.event-card.hidden-event');
+            hiddenEvents.forEach(event => {
+                event.classList.remove('hidden-event');
+            });
+            e.target.style.display = 'none';
+        }
+    });
     
     // View Toggle
     viewButtons.forEach(btn => {

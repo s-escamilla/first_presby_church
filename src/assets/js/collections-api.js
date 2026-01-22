@@ -347,10 +347,10 @@ class CollectionsAPI {
                 `;
             }
 
-            // Re-initialize communication handlers if available
-            if (window.initializeCommunicationHandlers) {
-                window.initializeCommunicationHandlers();
-            }
+            // Dispatch custom event to notify communication-modal.js that data is ready
+            window.dispatchEvent(new CustomEvent('communicationsDataLoaded', { 
+                detail: { communications } 
+            }));
 
         } catch (error) {
             commsContainer.innerHTML = `<div class="error">Error loading communications: ${error.message}</div>`;
