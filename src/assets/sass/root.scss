@@ -799,7 +799,7 @@ p{
 			background: white;	
 			}
 			h2 {
-					&.events{
+					&.events,&.staff,&.communications{
 						color:white;
 						background-color:var(--primary);
 					}
@@ -986,8 +986,8 @@ p{
 				
 				}
 				
-				&.calendar_view {
-					.modal-event-card>div{
+				&.calendar_view {						
+					.view-toggle-container{
 							width: 100%;
 							display: flex;
 							justify-content: center;

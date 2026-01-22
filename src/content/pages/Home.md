@@ -19,7 +19,7 @@ sections:
         buttonStyle: Solid
         buttonColor: Primary
         buttonText: Sunday Service Livestream
-        buttonLink: home
+        buttonLink: https://www.youtube.com/@firstpresbyterianchurch-go8630
     backgroundImageColor: Color
     subtitle: First Presbyterian Church
     title: Welcome to

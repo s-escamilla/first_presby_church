@@ -235,12 +235,14 @@ class CollectionsAPI {
                     minute: '2-digit',
                     hour12: true 
                 });
+                const year = eventDate.getFullYear();
 
                 return `
                     <div class="event-card ${index >= 6 ? 'hidden-event' : ''}" data-event-date="${event.date}">
                         <div class="event-card-date-badge" data-date="${event.date}">
                             <div class="event-day">${day}</div>
                             <div class="event-month">${month}</div>
+                            <div class="event-year">${year}</div>
                         </div>
                         <div class="event-card-content">
                             <h4 class="event-card-title">${event.title}</h4>

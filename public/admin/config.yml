@@ -61,6 +61,7 @@ collections:
                   fields:
                       - { label: "Facebook", name: "facebook", widget: "string", required: false }
                       - { label: "Instagram", name: "instagram", widget: "string", required: false }
+                      - { label: "Youtube", name: "youtube", widget: "string", required: false }
                 - { label: "Domain", name: "domain", widget: "string", hint: "Include protocol (https://) with NO trailing slash" }
                 - label: "Logo Images"
                   name: "logo"
