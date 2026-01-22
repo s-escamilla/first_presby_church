@@ -1,22 +1,22 @@
 // Events Section - Interactive Event List
-function addListeners(){
-// document.addEventListener('DOMContentLoaded', function() {
-    const eventItems = document.querySelectorAll('.event-item');
-    const eventDetails = document.querySelector('.event-details');
-    const eventModal = document.querySelector('.popup-modal');
-    const eventModalOverlay = document.querySelector('.event-modal-overlay');
-    const eventModalClose = document.querySelector('.event-modal-close');
+// Uses event delegation to handle dynamically loaded event items
+
+document.addEventListener('DOMContentLoaded', function() {
     
-    if (!eventItems.length) return;
-    
-    // Mark past events
-    const now = new Date();
-    eventItems.forEach(item => {
-        const eventDate = new Date(item.dataset.eventDate);
-        if (eventDate < now) {
-            item.classList.add('past-event');
-        }
-    });
+    // Function to mark past events
+    function markPastEvents() {
+        const eventItems = document.querySelectorAll('.event-item');
+        const now = new Date();
+        eventItems.forEach(item => {
+            const eventDate = new Date(item.dataset.eventDate);
+            if (eventDate < now) {
+                item.classList.add('past-event');
+            }
+        });
+    }
+
+    // Initial marking of past events (for static content)
+    markPastEvents();
     
     // Check if we're on mobile
     function isMobile() {
@@ -49,6 +49,7 @@ function addListeners(){
     
     // Function to show modal (mobile)
     function showModal(title, date, location, details) {
+        const eventModal = document.querySelector('.popup-modal#eventModal');
         if (!eventModal) return;
         
         // Update modal content
@@ -76,55 +77,71 @@ function addListeners(){
     
     // Function to close modal
     function closeModal() {
+        const eventModal = document.querySelector('.popup-modal#eventModal');
         if (!eventModal) return;
         eventModal.classList.remove('active');
         document.body.style.overflow = '';
     }
     
-    // Event listeners for modal close
-    if (eventModalClose) {
-        eventModalClose.addEventListener('click', closeModal);
-    }
-    
-    if (eventModalOverlay) {
-        eventModalOverlay.addEventListener('click', closeModal);
-    }
+    // Use event delegation on parent container for event items
+    document.body.addEventListener('click', function(e) {
+        // Check if clicked element is an event item or inside one
+        const eventItem = e.target.closest('.event-item');
+        if (!eventItem) return;
+        
+        // Remove active class from all items
+        const eventItems = document.querySelectorAll('.event-item');
+        eventItems.forEach(el => el.classList.remove('active'));
+        
+        // Add active class to clicked item
+        eventItem.classList.add('active');
+        
+        // Get event data from the clicked item
+        const titleEl = eventItem.querySelector('.event-item-title');
+        const dateEl = eventItem.querySelector('.event-item-date');
+        const dataContainer = eventItem.querySelector('.event-item-data');
+        
+        if (!titleEl || !dateEl || !dataContainer) return;
+        
+        const title = titleEl.textContent;
+        const date = dateEl.textContent;
+        const location = dataContainer.querySelector('.event-location')?.textContent || '';
+        const details = dataContainer.querySelector('.event-details')?.textContent || '';
+        
+        // On mobile, show modal; on desktop, update details panel
+        const eventDetails = document.querySelector('.event-details');
+        
+        if (isMobile()) {
+            showModal(title, date, location, details);
+        } else if (eventDetails) {
+            // Update the details panel with smooth transition
+            eventDetails.style.opacity = '0';
+            
+            setTimeout(() => {
+                eventDetails.innerHTML = updateEventDetails(title, date, location, details);
+                eventDetails.style.opacity = '1';
+            }, 200);
+        }
+    });
+
+    // Modal close handlers (also use event delegation)
+    document.body.addEventListener('click', function(e) {
+        if (e.target.matches('.event-modal-close') || 
+            e.target.matches('.event-modal-overlay')) {
+            closeModal();
+        }
+    });
     
     // Close modal on ESC key
     document.addEventListener('keydown', function(e) {
+        const eventModal = document.querySelector('.popup-modal#eventModal');
         if (e.key === 'Escape' && eventModal && eventModal.classList.contains('active')) {
             closeModal();
         }
     });
     
-    // Event item click handler
-    eventItems.forEach(item => {
-        item.addEventListener('click', function() {
-            // Remove active class from all items
-            eventItems.forEach(el => el.classList.remove('active'));
-            
-            // Add active class to clicked item
-            this.classList.add('active');
-            
-            // Get event data from the clicked item
-            const title = this.querySelector('.event-item-title').textContent;
-            const date = this.querySelector('.event-item-date').textContent;
-            const dataContainer = this.querySelector('.event-item-data');
-            const location = dataContainer.querySelector('.event-location').textContent;
-            const details = dataContainer.querySelector('.event-details').textContent;
-            
-            // On mobile, show modal; on desktop, update details panel
-            if (isMobile()) {
-                showModal(title, date, location, details);
-            } else if (eventDetails) {
-                // Update the details panel with smooth transition
-                eventDetails.style.opacity = '0';
-                
-                setTimeout(() => {
-                    eventDetails.innerHTML = updateEventDetails(title, date, location, details);
-                    eventDetails.style.opacity = '1';
-                }, 200);
-            }
-        });
+    // Listen for API data loaded and mark past events
+    window.addEventListener('eventsDataLoaded', function() {
+        markPastEvents();
     });
-}
+});

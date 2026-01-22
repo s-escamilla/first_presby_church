@@ -1,6 +1,6 @@
 // Collections API Handler
 // Fetches and renders collections data from external API
-import addListeners from './events.js';
+
 class CollectionsAPI {
     constructor(apiBaseUrl) {
         this.apiBaseUrl = apiBaseUrl || '/api/database'; // Default to local API
@@ -47,9 +47,7 @@ class CollectionsAPI {
 
     // Get events
     async getEvents() {
-        await this.fetchCollection('events').then(()=>{
-            addListeners();});
-        return 
+        return this.fetchCollection('events');
     }
 
     // Get communications  
@@ -175,8 +173,10 @@ class CollectionsAPI {
 
             eventsContainer.innerHTML = eventDetailsHTML + eventListContainerHTML + modalHTML;
 
-            // events.js will automatically attach event handlers on DOMContentLoaded
-            // No need to manually reinitialize since it uses event delegation
+            // Dispatch custom event to notify events.js that data is ready
+            window.dispatchEvent(new CustomEvent('eventsDataLoaded', { 
+                detail: { events } 
+            }));
 
         } catch (error) {
             eventsContainer.innerHTML = `<div class="error">Error loading events: ${error.message}</div>`;
@@ -260,11 +260,6 @@ class CollectionsAPI {
             if (listContainer) {
                 listContainer.innerHTML = eventCardsHTML + showMoreButton;
             }
-
-            // Dispatch custom event to notify calendar-view.js that data is ready
-            window.dispatchEvent(new CustomEvent('calendarDataLoaded', { 
-                detail: { events } 
-            }));
 
         } catch (error) {
             console.error('Error loading calendar events:', error);
@@ -352,8 +347,10 @@ class CollectionsAPI {
                 `;
             }
 
-            // communication-modal.js will automatically attach handlers on DOMContentLoaded
-            // No need to manually reinitialize since it uses event delegation
+            // Re-initialize communication handlers if available
+            if (window.initializeCommunicationHandlers) {
+                window.initializeCommunicationHandlers();
+            }
 
         } catch (error) {
             commsContainer.innerHTML = `<div class="error">Error loading communications: ${error.message}</div>`;
