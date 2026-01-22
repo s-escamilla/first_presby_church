@@ -1,6 +1,6 @@
 // Collections API Handler
 // Fetches and renders collections data from external API
-
+import addListeners from './events.js';
 class CollectionsAPI {
     constructor(apiBaseUrl) {
         this.apiBaseUrl = apiBaseUrl || '/api/database'; // Default to local API
