@@ -261,6 +261,11 @@ class CollectionsAPI {
                 listContainer.innerHTML = eventCardsHTML + showMoreButton;
             }
 
+            // Dispatch custom event to notify calendar-view.js that data is ready
+            window.dispatchEvent(new CustomEvent('calendarDataLoaded', { 
+                detail: { events } 
+            }));
+
         } catch (error) {
             console.error('Error loading calendar events:', error);
             const dataContainer = container.querySelector('.events-data');
