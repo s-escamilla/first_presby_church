@@ -73,16 +73,6 @@ collections:
                       - { label: "Logo Alt Text", name: "alt", widget: "string", default: "Company Logo" }
                       - { label: "Logo Width", name: "width", widget: "number", default: 210 }
                       - { label: "Logo Height", name: "height", widget: "number", default: 40 }
-    - name: "events"
-      label: "Events"
-      folder: "src/content/events"
-      create: true
-      slug: "{{slug}}"
-      fields:
-          - { label: "Event Title", name: "title", widget: "string" }
-          - { label: "Event Date", name: "date", widget: "datetime" }
-          - { label: "Event Location", name: "location", widget: "text" }
-          - { label: "Event Details", name: "details", widget: "markdown" }
     - name: "staff"
       label: "Staff"
       folder: "src/content/staff"
@@ -94,15 +84,6 @@ collections:
           - { label: "Staff Photo", name: "photo", widget: "image" }
           - { label: "Staff Since", name: "date", widget: "datetime" }
           - { label: "Staff Biography", name: "description", widget: "markdown" }
-    - name: "communications"
-      label: "Communications"
-      folder: "src/content/communications"
-      create: true
-      slug: "{{subject}}"
-      fields:
-          - { label: "Subject", name: "subject", widget: "string" }
-          - { label: "Date", name: "date", widget: "datetime" }
-          - { label: "Body", name: "body", widget: "markdown" }
     - name: "pages"
       label: "Pages"
       folder: "src/content/pages"
