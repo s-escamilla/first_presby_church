@@ -10,7 +10,7 @@ sections:
     styleOptions: Style_2
     subtitleColor: Black
     backgroundImageColor: Color
-    title: About Us
+    title: About Use
     backgroundImage: /assets/images/fpcgoshen_img2_grayscal.jpg
   - type: text_section
     styleOptions: Default
