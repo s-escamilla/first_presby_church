@@ -10,7 +10,7 @@ sections:
     styleOptions: Style_2
     subtitleColor: Black
     backgroundImageColor: Color
-    title: Contact
+    title: Contactff
     subtitle: ""
     backgroundImage: /assets/images/20251225_131905.jpg
   - type: text_section
