@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Format date for header
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        const formattedDate = date.toLocaleDateString('en-US', options);
+       
         
         // Get modal body
         const modalBody = modal.querySelector('.calendar-modal-body');
@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add date header
         const dateHeader = document.createElement('h2');
         dateHeader.className = 'modal-date-header';
-        dateHeader.textContent = formattedDate;
+        dateHeader.textContent = date;
         modalBody.appendChild(dateHeader);
         
         // Add events count
