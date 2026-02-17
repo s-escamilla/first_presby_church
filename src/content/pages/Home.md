@@ -39,15 +39,12 @@ sections:
         alignment: left
         indentation: none
         content: >-
-          Located in Downtown Goshen, we are a congregation seeking to learn the
-          spiritual rhythms and practices of Jesus in order to grow closer to
-          God. We are excited about what God is doing in our midst.
+          Located in downtown Goshen, our congregation has a vision for ministry
+          that is guided by our values of inclusive community, evolving faith,
+          collaborative thinking, and being sustainably focused.  
 
 
-          We want you to know what to expect if you visit, what we believe, what our goals are, how we work together, and introduce you to our leaders.  In addition we want you to know how you can become a part of our congregation if you discover this is the place where God is calling you to grow and use your gifts.
-
-
-          We hope you will visit us.
+          We are an active and engaged group who seek to build on the community of faith, hope, love, and witness in the Foundations of the Book of Order.  We have been and continue to be a relational church.  Our enduring connection and history give us a strong desire to share our blessings with others and we seek to be a church that is welcoming to all people.
     imageAlt: test
   - type: text_section
     backgroundType: image-content
