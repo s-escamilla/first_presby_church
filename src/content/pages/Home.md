@@ -38,13 +38,13 @@ sections:
       - type: text_block
         alignment: left
         indentation: none
-        content: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-          veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-          ea commodo consequat. Duis aute irure dolor in reprehenderit in
-          voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-          sint occaecat cupidatat non proident, sunt in culpa qui officia
-          deserunt mollit anim id est laborum.
+        content: >-
+          Located in downtown Goshen, our congregation has a vision for ministry
+          that is guided by our values of inclusive community, evolving faith,
+          collaborative thinking, and being sustainably focused.  
+
+
+          We are an active and engaged group who seek to build on the community of faith, hope, love, and witness in the Foundations of the Book of Order.  We have been and continue to be a relational church.  Our enduring connection and history give us a strong desire to share our blessings with others and we seek to be a church that is welcoming to all people.
     imageAlt: test
   - type: text_section
     backgroundType: image-content
@@ -120,11 +120,11 @@ sections:
         alignment: left
         indentation: none
       - type: text_block
-        content: "**Phone Number**: (574)533-784"
+        content: "**Phone Number**: (574)533-7845"
         alignment: left
         indentation: none
       - type: text_block
-        content: "**Email**: fpcgoshen46528@gmail.com"
+        content: "**Email**: administration@fpcgoshen.com"
         alignment: left
         indentation: none
       - type: button_group
