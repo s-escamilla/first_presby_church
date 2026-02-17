@@ -87,7 +87,7 @@ sections:
       - type: text_block
         alignment: center
         indentation: none
-        content: "Phone : (574) 533-7845"
+        content: (574) 533-7845
       - type: text_block
         alignment: center
         indentation: none
