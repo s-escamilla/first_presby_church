@@ -120,11 +120,11 @@ sections:
         alignment: left
         indentation: none
       - type: text_block
-        content: "**Phone Number**: (574)533-784"
+        content: "**Phone Number**: (574)533-7845"
         alignment: left
         indentation: none
       - type: text_block
-        content: "**Email**: fpcgoshen46528@gmail.com"
+        content: "**Email**: administration@fpcgoshen.com"
         alignment: left
         indentation: none
       - type: button_group
