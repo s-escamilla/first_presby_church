@@ -63,16 +63,7 @@ sections:
       - type: text_block
         alignment: left
         indentation: medium
-        content: |-
-          
-
-          euismod pellentesque lorem dui non odio. Nunc
-
-          vestibulum euismod cursus. Donec eget ultrices nisl.
-
-
-
-          Donec ut turpis eu diam dictum scelerisque
+        content: Sal help
   - type: text_section
     backgroundType: image-white-box
     backgroundColor: primary
