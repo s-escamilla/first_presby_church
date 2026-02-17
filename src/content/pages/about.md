@@ -29,39 +29,26 @@ sections:
         alignment: left
         indentation: small
       - type: text_block
-        content: "**What to wear to sunday service**"
+        content: "**What should I wear to church?**"
         alignment: left
         indentation: medium
       - type: text_block
         alignment: left
         indentation: large
-        content: |-
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus
-
-
-
-          vehicula convallis. Ut eleifend sem fermentum est hendrerit bibendum.
-
-          Duis purus lacus, facilisis dapibus tempus sit amet, porta non nulla.
+        content: At First Presbyterian Church, we care more about meeting you than what
+          you are wearing.  Some of us are more casual, some are more
+          formal.  Come as you most feel comfortable.
       - type: text_block
         alignment: left
         indentation: medium
-        content: "**FAQ 2**"
+        content: "**Where are you located?**"
       - type: text_block
         alignment: left
         indentation: large
-        content: |-
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus
-
-
-
-          vehicula convallis. Ut eleifend sem fermentum est hendrerit bibendum.
-
-          Duis purus lacus, facilisis dapibus tempus sit amet, porta non nulla.
-
-
-
-          Nunc elementum quam id nulla tempor efficitur.
+        content: Our address is 215 E. Lincoln Avenue, Goshen, IN 46528.  We are located
+          just east of Lincoln Avenue and Fifth Street.  Parking is available on
+          the northwest side of the building (public parking lot) and from that
+          parking lot, you will see the main entrance to the building.
     widgetBackgroundImage: /assets/images/fpcgoshen_img2_grayscal.jpg
     backgroundType: none
   - type: text_section
