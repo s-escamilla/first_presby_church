@@ -38,13 +38,13 @@ sections:
       - type: text_block
         alignment: left
         indentation: none
-        content: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-          veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-          ea commodo consequat. Duis aute irure dolor in reprehenderit in
-          voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-          sint occaecat cupidatat non proident, sunt in culpa qui officia
-          deserunt mollit anim id est laborum.
+        content: >-
+          Located in Downtown Goshen, we are a congregation seeking to learn the
+          spiritual rhythms and practices of Jesus in order to grow closer to
+          God. We are excited about what God is doing in our midst.
+
+
+          We hope you will visit us.
     imageAlt: test
   - type: text_section
     backgroundType: image-content
