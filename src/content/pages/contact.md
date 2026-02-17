@@ -83,7 +83,7 @@ sections:
         style: Default
         alignment: center
         indentation: none
-        text: Phone number
+        text: "Phone & Email "
       - type: text_block
         alignment: center
         indentation: none
@@ -91,5 +91,5 @@ sections:
       - type: text_block
         alignment: center
         indentation: none
-        content: "Email: administration@fpcgoshen.com"
+        content: administration@fpcgoshen.com
 ---
