@@ -35,7 +35,7 @@ sections:
       - type: text_block
         alignment: left
         indentation: large
-        content: At First Presbyterian we are more about meeting you then what you are
+        content: At First Presbyterian we care more about meeting you than what you are
           wearing.  Some of us are more casual; some are more formal.  Come as
           you most feel comfortable.
       - type: text_block
