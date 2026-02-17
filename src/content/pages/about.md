@@ -41,22 +41,14 @@ sections:
       - type: text_block
         alignment: left
         indentation: medium
-        content: "**FAQ 2**"
+        content: "**Where are you located?**"
       - type: text_block
         alignment: left
         indentation: large
-        content: |-
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus
-
-
-
-          vehicula convallis. Ut eleifend sem fermentum est hendrerit bibendum.
-
-          Duis purus lacus, facilisis dapibus tempus sit amet, porta non nulla.
-
-
-
-          Nunc elementum quam id nulla tempor efficitur.
+        content: We are located at 215 E. Lincoln Avenue, Goshen, IN 46528.  We are just
+          east of Fifth Street and our formal entrance is on Lincoln
+          Avenue.  There is a public parking lot on the northwest side of the
+          building and that is the side where you will find the main entrance.
     widgetBackgroundImage: /assets/images/fpcgoshen_img2_grayscal.jpg
     backgroundType: none
   - type: text_section
