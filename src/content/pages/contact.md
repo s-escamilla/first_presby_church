@@ -1,5 +1,5 @@
 ---
-title: Contact
+title: Contact Us
 url: contact
 description: contact page
 showInNav: true
@@ -10,7 +10,7 @@ sections:
     styleOptions: Style_2
     subtitleColor: Black
     backgroundImageColor: Color
-    title: Contact
+    title: Contact Us
     subtitle: ""
     backgroundImage: /assets/images/20251225_131905.jpg
   - type: text_section
@@ -25,11 +25,7 @@ sections:
         indentation: none
       - type: text_block
         content: |-
-          Stop on by! We look forward to seeing you!
-
-          We are located at
-
-          215 East Lincoln
+          215 East Lincoln Avenue
 
           Goshen, IN 46528
         alignment: center
@@ -45,7 +41,7 @@ sections:
         style: Default
         alignment: center
         indentation: none
-        text: Operational Hours
+        text: Office Hours
       - type: text_block
         content: |-
           **Monday**
@@ -87,13 +83,13 @@ sections:
         style: Default
         alignment: center
         indentation: none
-        text: More ways to reach out
+        text: Phone number
       - type: text_block
         alignment: center
         indentation: none
-        content: "Phone : (574)533-7845"
+        content: "Phone : (574) 533-7845"
       - type: text_block
         alignment: center
         indentation: none
-        content: "Email: fpcgoshen46528@gmail.com"
+        content: "Email: administration@fpcgoshen.com"
 ---
