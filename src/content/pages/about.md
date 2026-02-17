@@ -77,7 +77,7 @@ sections:
       - type: header_block
         level: h2
         style: full_highlight
-        text: "Presbyterians Are:"
+        text: Presbyterians Are
         alignment: left
         indentation: small
       - type: text_block
