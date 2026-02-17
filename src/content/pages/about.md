@@ -82,31 +82,64 @@ sections:
         indentation: small
       - type: text_block
         content: >-
-          * **Protestant.** We come from the Protestant Reformation that began
-          in the 1500’s with the theological thought of Martin Luther and John
+          **Protestant.** We come from the Protestant Reformation that began in
+          the 1500’s with the theological thought of Martin Luther and John
           Calvin.
 
-          * **Reformed and always reforming.** We try to always reform our life and practice, both individually and corporately, according to the teachings of scriptures.
 
-          * **Elected by God’s grace.** We believe we have been chosen by God’s grace. However, this election is not primarily for privilege, but rather for service. It leads us to gratitude and assurance in our faith, and is best recognized in retrospect.
 
-          * **Saved to share the good news with the world around us.** Missions have always been a strong emphasis of our denomination.
 
-          * **Bible centered.** The scriptures of the Old and New Testament are our only authoritative guide for faith and life.
+          **Reformed and always reforming.** We try to always reform our life and practice, both individually and corporately, according to the teachings of scriptures.
 
-          * **Yielded to God for God’s work in the world.** This means being good stewards of God’s creation. It means working for peace and justice. We seek to change unjust social structures where they exist.
 
-          * **Thinkers of our faith.** We believe that God has given us minds to use for his service. We believe that the life of the mind is a service to God. Therefore, we study our faith in order to love God with our mind, as well as our heart and soul.
 
-          * **Encouraged by what we believe God can do.** Presbyterians tend to balance an undue pessimism about the world with a sense that, with God, all things are possible. We pray for and work for the kingdom of God in the world, knowing that all good things ultimately come from God.
 
-          * **Relying on God’s grace by faith for our salvation.** It is not our works, nor our righteousness that saves us. Our salvation is by God’s grace through faith in Jesus Christ. No matter how much good we do, we are always sinners saved by grace.
+          **Elected by God’s grace.** We believe we have been chosen by God’s grace. However, this election is not primarily for privilege, but rather for service. It leads us to gratitude and assurance in our faith, and is best recognized in retrospect.
 
-          * **Inspired to worship God in all we do.** Worship is our #1 priority. Our primary reason for existence is to “glorify God and enjoy him forever”. We make personal prayer a priority and regularly gather to worship with God’s people.
 
-          * **Attached to one another by bonds of love.** Every person matters to God. Every person’s gift is needed in the church. Everyone is of value and worth in God’s sight. We believe that the church is built up by the exercise of God’s peoples’ spiritual gifts therefore we encourage everyone to find a place to serve.
 
-          * **Never afraid to adjust our organizational practices in order to share the gospel more effectively.** We are slow to change our theology, but quick to change our practices when it helps us take the unchanging gospel into a rapidly changing world.
+
+          **Saved to share the good news with the world around us.** Missions have always been a strong emphasis of our denomination.
+
+
+
+
+          **Bible centered.** The scriptures of the Old and New Testament are our only authoritative guide for faith and life.
+
+
+
+
+          **Yielded to God for God’s work in the world.** This means being good stewards of God’s creation. It means working for peace and justice. We seek to change unjust social structures where they exist.
+
+
+
+
+          **Thinkers of our faith.** We believe that God has given us minds to use for his service. We believe that the life of the mind is a service to God. Therefore, we study our faith in order to love God with our mind, as well as our heart and soul.
+
+
+
+
+          **Encouraged by what we believe God can do.** Presbyterians tend to balance an undue pessimism about the world with a sense that, with God, all things are possible. We pray for and work for the kingdom of God in the world, knowing that all good things ultimately come from God.
+
+
+
+
+          **Relying on God’s grace by faith for our salvation.** It is not our works, nor our righteousness that saves us. Our salvation is by God’s grace through faith in Jesus Christ. No matter how much good we do, we are always sinners saved by grace.
+
+
+
+
+          **Inspired to worship God in all we do.** Worship is our #1 priority. Our primary reason for existence is to “glorify God and enjoy him forever”. We make personal prayer a priority and regularly gather to worship with God’s people.
+
+
+
+
+          **Attached to one another by bonds of love.** Every person matters to God. Every person’s gift is needed in the church. Everyone is of value and worth in God’s sight. We believe that the church is built up by the exercise of God’s peoples’ spiritual gifts therefore we encourage everyone to find a place to serve.
+
+
+
+
+          **Never afraid to adjust our organizational practices in order to share the gospel more effectively.** We are slow to change our theology, but quick to change our practices when it helps us take the unchanging gospel into a rapidly changing world.
         alignment: left
         indentation: medium
       - type: header_block
